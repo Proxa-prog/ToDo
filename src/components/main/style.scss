@@ -1,0 +1,15 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.main {
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(162deg, rgba(9,9,121,1) 24%, rgba(0,212,255,1) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 50px;
+}
