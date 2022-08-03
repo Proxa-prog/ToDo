@@ -11,3 +11,35 @@ export interface IId {
     type: string;
     payload: number;
 }
+
+export interface ITask {
+    id: number;
+    name: string;
+}
+
+export interface ITaskList {
+    taskList: ITask[];
+}
+
+export enum UserListAction {
+    ADD_TASK = 'ADD_TASK',
+    REMOVE_TASK = 'REMOVE_TASK',
+}
+
+export interface IName {
+    name: string;
+}
+
+export interface INameArray {
+    nameArray: IName[];
+}
+
+export interface INameAction {
+    type: string;
+    payload: string;
+}
+
+export enum nameArrayAction {
+    ADD_NAME = 'ADD_NAME',
+    REMOVE_NAME = 'REMOVE_NAME',
+}

@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import './style.scss';
 
-const CreateNewDesk = ({addId}: any) => {
+const CreateNewDesk = ({addId, addTask, id}: any) => {
     const [name, setName] = useState('');
 
-    
     return (
         <div className='main__create-desk'>
             <label htmlFor="desk-name">Название доски</label>
@@ -13,14 +12,15 @@ const CreateNewDesk = ({addId}: any) => {
                 type="text" 
                 id='desk-name'
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => {
+                    setName(e.target.value)}}
             />
 
             <button 
                 className='main__add-desk' 
                 onClick={() => {
-                    addId.addId()
-
+                    addId()
+                    addTask({name, id})
                     }}>
                     Добавить
             </button>

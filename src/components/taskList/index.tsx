@@ -1,13 +1,14 @@
+import { ITask } from '../../type';
 import './style.scss';
 
-const TaskList = (array: any) => {
+const TaskList = ({array}: any) => {
     return (
         <ul className="main__task-list">
-            {/* {
-                array.map((item: any) => (
-                    <p>{item}</p>
+            {
+                array.map((item: ITask) => (
+                    <li key={item.id}>{item.name}</li>
                 ))
-            } */}
+            }
         </ul>
     );
   }
