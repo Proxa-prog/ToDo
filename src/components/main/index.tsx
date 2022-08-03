@@ -7,17 +7,13 @@ import TaskList from '../taskList';
 
 import './style.scss';
 
-function Main() {
+function Main({addTask, taskState}: any) {
   const dispatch = useDispatch();
   const idState = useTypedSelectors(state => state.id);
-  const taskState = useTypedSelectors(state => state.task);
+
   
   const addId = () => {
     dispatch({type: IdAction.ADD_ID, payload: idState?.id});
-  }
-
-  const addTask = (task: ITask) => {
-    dispatch({type: UserListAction.ADD_TASK, payload: [...taskState.taskList, task]});
   }
 
   return (
