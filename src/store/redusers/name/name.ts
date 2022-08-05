@@ -1,16 +1,16 @@
-import { INameAction, INameArray, nameArrayAction } from "../../../type";
+import { INameAction, ITaskNameArray, taskNameArrayAction } from "../../../type";
 
-const initialState: INameArray = {
-    nameArray: [],
+const initialState: any = {
+    taskNameArray: [],
 }
 
-export const nameReduser = (state = initialState, action: INameAction) => {
+export const taskNameReduser = (state = initialState, action: INameAction): any => {
     switch(action.type) {
-        // case nameArrayAction.ADD_NAME:
-        //     return {...state, nameArray: [...state, ]}
-        // case nameArrayAction.REMOVE_NAME:
+        case taskNameArrayAction.ADD_TASK_NAME:
+            return {...state, taskNameArray: action.payload}
+        // case taskNameArrayAction.REMOVE_TASK_NAME:
         //     return {id: state.id - 1}
-        // default:
-            // return state;
+        default:
+            return state;
     }
 }

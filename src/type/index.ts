@@ -14,7 +14,7 @@ export interface IId {
 
 export interface ITask {
     id: number;
-    name: string;
+    name: string[];
 }
 
 export interface ITaskList {
@@ -27,19 +27,42 @@ export enum UserListAction {
 }
 
 export interface IName {
-    name: string;
+    task: string;
 }
 
 export interface INameArray {
     nameArray: IName[];
 }
 
+export interface ITaskNameArray {
+    taskNameArray: IName[];
+}
+
+export interface INameArrays {
+    name: [];
+}
+
 export interface INameAction {
     type: string;
-    payload: string;
+    payload: string[];
 }
 
 export enum nameArrayAction {
     ADD_NAME = 'ADD_NAME',
     REMOVE_NAME = 'REMOVE_NAME',
+}
+
+export enum taskNameArrayAction {
+    ADD_TASK_NAME = 'ADD_NAME',
+    REMOVE_TASK_NAME = 'REMOVE_NAME',
+}
+
+export enum NameArrayAction {
+    ADD_TASK_NAME = 'ADD_TASK_NAME',
+    REMOVE_TASK_NAME = 'REMOVE_TASK_NAME',
+}
+
+export interface IAction {
+    type: NameArrayAction,
+    payload: [],
 }

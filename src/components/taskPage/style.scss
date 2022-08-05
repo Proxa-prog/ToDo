@@ -1,0 +1,111 @@
+.task-page {
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(162deg, rgba(5,156,235,1) 0%, rgba(255,0,206,1) 100%);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+}
+
+.task-page__inner {
+    width: 615px;
+}
+
+.task-page__title {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 5px;
+    border: 2px solid darkkhaki;
+}
+
+.task-page__task-name {
+    border-radius: 20px;
+    padding: 30px 0;
+    text-align: center;
+}
+
+.task-page__button {
+    width: 100%;
+    border-color: rgba(0,212,255,1);
+    background-color: #059ceb;
+    color: rgba(9,9,121,1);
+    padding: 5px;
+    cursor: pointer;
+}
+
+.task-page__input-name-wrapper {
+    width: 300px;
+    border-radius: 20px;
+    background-color: #fff;
+    padding: 30px 20px;
+    width: 200px;
+    text-align: center;
+    position: relative;
+}
+
+.task-page__button-close {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    right: 10px;
+    top: 5px;
+    background-color: red;
+    border: none;
+}
+
+.task-page__span {
+    position: relative;
+
+    &::before {
+        position: absolute;
+        content: "";
+        width: 15px;
+        height: 1px;
+        background-color: #fff;
+        transform: rotate(45deg); 
+        top: 0px;
+        left: -7px;
+
+    }
+
+    &::after {
+        position: absolute;
+        content: "";
+        width: 15px;
+        height: 1px;
+        background-color: #fff;
+        transform: rotate(-45deg);
+        top: 0px;
+        left: -7px;
+    }
+}
+
+.task-page__input {
+    width: 100%;
+}
+
+.task-page__task-name-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.task-page__task-name-item {
+    width: 200px;
+    border: 2px solid rgba(0,212,255,1);
+    color: rgba(9,9,121,1);
+    padding: 5px;
+    text-align: center;
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+
+.task-page__task {
+    width: 100%;
+    margin: 5px 0;
+    padding: 3px;
+    background-color: rgb(94, 0, 183);
+    color: #fff;
+}
