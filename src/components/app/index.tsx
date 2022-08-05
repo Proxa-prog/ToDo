@@ -13,9 +13,11 @@ import './style.scss';
 function App() {
   const dispatch = useDispatch();
   const taskState = useTypedSelectors(state => state.task);
+  
 
   const addTask = (task: ITask) => {
     dispatch({type: UserListAction.ADD_TASK, payload: [...taskState.taskList, task]});
+    console.log(taskState)
   }
   
   return (

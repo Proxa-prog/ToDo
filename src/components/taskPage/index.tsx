@@ -22,6 +22,7 @@ const TaskPage = ({taskState}: any) => {
 
     const createNewName = (newName: any) => {
         dispatch({type: NameArrayAction.ADD_TASK_NAME, payload: [...nameState.name, newName]})
+        
     }
 
     return (
@@ -70,7 +71,7 @@ const TaskPage = ({taskState}: any) => {
                 <div>
                     <ul className="task-page__task-name-list">
                         {   
-                            taskNameState.taskNameArray.map((task: any, index: number) => {
+                            taskNameState.taskNameArray.map((task: any) => {
                                 
                                 return (
                                 <li className="task-page__task-name-item" key={task}>
@@ -82,13 +83,8 @@ const TaskPage = ({taskState}: any) => {
                                             onChange={(e) => {setTaskName(e.target.value)}}
                                             onKeyDown={(e) => {
                                                 if(e.keyCode === 13) {
-                                                    for(let i = 0; i < nameState.name.length; i++) {
-                                                        if(nameState.name[index] === nameState.name[i]) {
-                                                            console.log(nameState.name[i])
-                                                            // nameState.name[i].push();
-                                                        }
-                                                    }
-                                                    
+                                                    task.taskArray.push(taskName);
+                                                    console.log(task)
                                                 }
                                             }}
                                         />
