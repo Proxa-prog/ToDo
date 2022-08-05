@@ -4,11 +4,11 @@ import Main from '../main';
 import Error from '../error';
 import TaskPage from '../taskPage';
 
-import './style.scss';
 import { useDispatch } from 'react-redux';
 import { useTypedSelectors } from '../../hooks/useTypedSelectors';
 import { ITask, UserListAction } from '../../type';
 
+import './style.scss';
 
 function App() {
   const dispatch = useDispatch();
