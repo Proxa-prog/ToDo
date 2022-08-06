@@ -13,6 +13,7 @@ const TaskPage = ({taskState}: any) => {
     const [open, setOpen] = useState(true);
     const [name, setName] = useState('');
     const [taskName, setTaskName] = useState('');
+    const [nameArray, setNameArray] = useState('');
     const taskNameState = useTypedSelectors(state => state.taskName);
     const nameState = useTypedSelectors(state => state.name);
 
@@ -71,7 +72,7 @@ const TaskPage = ({taskState}: any) => {
                 <div>
                     <ul className="task-page__task-name-list">
                         {   
-                            taskNameState.taskNameArray.map((task: any) => {
+                            taskNameState.taskNameArray.map((task: any, index: number) => {
                                 
                                 return (
                                 <li className="task-page__task-name-item" key={task}>
@@ -80,16 +81,25 @@ const TaskPage = ({taskState}: any) => {
                                         <input 
                                             type="text"
                                             value={taskName}
-                                            onChange={(e) => {setTaskName(e.target.value)}}
+                                            onChange={(e) => {setTaskName(e.target.value); setNameArray(e.target.value)}}
                                             onKeyDown={(e) => {
                                                 if(e.keyCode === 13) {
-                                                    task.taskArray.push(taskName);
-                                                    console.log(task)
+                                                    nameState.name.map((item, indexName) => {
+                                                        console.log(taskName)
+                                                        if(index === indexName && taskName !== '') {
+                                                            setNameArray(taskName);
+                                                            console.log(task.taskArray)
+                                                            task.taskArray =  [...task.taskArray, nameArray];
+                                                            setNameArray('');
+                                                            console.log(task.taskArray)
+                                                        }
+                                                    })
                                                 }
                                             }}
                                         />
                                         {
                                              task.taskArray.map((item: any) => {
+                                                console.log(item)
                                                 //@ts-ignore
                                                 return <div className="task-page__task">{item}</div>
                                             })
