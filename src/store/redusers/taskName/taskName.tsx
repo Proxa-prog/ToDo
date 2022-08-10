@@ -1,14 +1,14 @@
 import { IAction, INameArrays, NameArrayAction } from "../../../type"
 
 const initialState: INameArrays = {
-    name: [],
+    array: [],
 }
 
 export const nameReduser = (state = initialState, action: IAction): INameArrays => {
     switch(action.type) {
         
         case NameArrayAction.ADD_TASK_NAME:
-            return {...state, name: action.payload}
+            return {...state, array: action.payload}
         default:
             return state
     }

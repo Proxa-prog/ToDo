@@ -12,13 +12,27 @@ export interface IId {
     payload: number;
 }
 
-export interface ITask {
-    id: number;
-    name: string[];
+// export interface ITaskCreate {
+//     taskName: string;
+//     taskArrayT: string[];
+// }
+
+export interface ITaskArray {
+    subDeskArray: any;
 }
 
-export interface ITaskList {
-    taskList: ITask[];
+export enum ITaskArrayType {
+    ADD_TASK_TYPE = 'ADD_TASK_TYPE',
+}
+
+export interface IDesk {
+    id: number;
+    name: string;
+    array: any;
+}
+
+export interface IDeskList {
+    deskList: IDesk[];
 }
 
 export enum UserListAction {
@@ -39,7 +53,7 @@ export interface ITaskNameArray {
 }
 
 export interface INameArrays {
-    name: [];
+    array: [];
 }
 
 export interface INameAction {
