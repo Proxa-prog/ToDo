@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useTypedSelectors } from '../../hooks/useTypedSelectors';
-import { IdAction, ITaskArrayType, UserListAction } from '../../type';
+
+import { useTypedSelectors } from '../../../hooks/useTypedSelectors';
+
+import { IdAction, IDesk, ISubTaskArray, ITaskArrayType, UserListAction } from '../../../type';
+
 import './style.scss';
 
 const CreateNewDesk = () => {
@@ -19,10 +22,10 @@ const CreateNewDesk = () => {
         dispatch({type: ITaskArrayType.ADD_TASK_TYPE, payload: [...subDeskArray.subDeskArray, []]});
       }
 
-      const addTask = (desk: any) => {
+      const addTask = (desk: IDesk) => {
         dispatch({type: UserListAction.ADD_TASK, payload: [...addDesk.deskList, desk]});
       }
-      console.log(addDesk)
+
     return (
         <div className='main__create-desk'>
             <label htmlFor="desk-name">Название доски</label>
@@ -31,9 +34,7 @@ const CreateNewDesk = () => {
                 type="text" 
                 id='desk-name'
                 value={name}
-                onChange={(e) => {
-                    setName(e.target.value)}
-                }
+                onChange={(e) => {setName(e.target.value)}}
             />
 
             <button 
@@ -41,11 +42,10 @@ const CreateNewDesk = () => {
                 onClick={() => {
                     addId()
                     addTaskInArray()
-                    subDeskArray.subDeskArray.map((array: any, index: any) => {
+                    subDeskArray.subDeskArray.map((array: ISubTaskArray[], index: number) => {
                         if(idState.id - 1 === index) {
                             addTask({name, id: idState.id, array})
-                        }
-                    })
+                        }})
                     }}
             >
                     Добавить
@@ -53,7 +53,8 @@ const CreateNewDesk = () => {
 
             <button 
                 className='main__cansel' 
-                onClick={() => {setName('')}}>
+                onClick={() => {setName('')}}
+            >
                     Отмена
             </button>
         </div>

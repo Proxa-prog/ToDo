@@ -1,12 +1,14 @@
 import { useNavigate } from 'react-router-dom';
-import { useTypedSelectors } from '../../hooks/useTypedSelectors';
-import { IDesk } from '../../type';
+
+import { useTypedSelectors } from '../../../hooks/useTypedSelectors';
+import { IDesk } from '../../../type';
+
 import './style.scss';
 
 const TaskList = () => {
     const router = useNavigate();
     const addDesk = useTypedSelectors(state => state.desk);
-    console.log( addDesk.deskList)
+
     return (
         <section className="main__task-list-wrapper">
             <ul className="main__task-list">

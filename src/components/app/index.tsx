@@ -1,13 +1,12 @@
-import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
 import Main from '../main';
 import Error from '../error';
-import TaskPage from '../taskPage';
+import TaskPage from '../UI/taskPage';
 
 import './style.scss';
 
 function App() {
-  
   return (
     <div className="app">
       <BrowserRouter>
@@ -17,7 +16,6 @@ function App() {
           <Route path='*' element={<Error />}/>
         </Routes>
       </BrowserRouter>
-      
     </div>
   );
 }
