@@ -13,8 +13,9 @@ export const Input = (props: any) => {
         }}
         onKeyDown={(e) => {
             if (e.keyCode === 13 && e.currentTarget) {
+                const name = props.nameArray;
                 props.setNameArray(props.taskName);
-                props.deskItem.taskArray = [...props.deskItem.taskArray, props.nameArray];
+                props.deskItem.taskArray = [...props.deskItem.taskArray, {name: name, status: false}];
                 props.setNameArray('');
             }
         }}

@@ -2,9 +2,14 @@ export interface IStateId {
     id: number;
 }
 
+export interface ITask {
+    name: string;
+    status: boolean;
+}
+
 export interface ISubTaskArray{
     name: string;
-    taskArray: string[];
+    taskArray: ITask[];
 }
 
 export interface IDesk {
@@ -30,6 +35,7 @@ export enum ITaskArrayType {
 export enum UserListAction {
     ADD_TASK = 'ADD_TASK',
     REMOVE_TASK = 'REMOVE_TASK',
+    COMPLETE = 'COMPLETE',
 }
 
 export interface IDeskAction {

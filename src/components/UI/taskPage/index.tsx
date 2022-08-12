@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { useTypedSelectors } from "../../../hooks/useTypedSelectors";
 
-import { IDesk, ISubTaskArray } from "../../../type";
+import { IDesk, ISubTaskArray, ITask } from "../../../type";
 import { Input } from "../input";
 import { Task } from "../task";
 
@@ -65,7 +65,7 @@ const TaskPage = () => {
                                             {
                                                 deskList.deskList.map((desk: IDesk) => {
                                                     if (desk.id === Number(params.taskId)) {
-                                                        const newSubDeskArray = { name: subDeskName, taskArray: [] };
+                                                        const newSubDeskArray = { name: subDeskName, taskArray: []};
                                                         desk.array = [...desk.array, newSubDeskArray]
                                                         setsubDeskName('')
                                                     }
@@ -94,7 +94,7 @@ const TaskPage = () => {
                                                             deskItem={deskItem}
                                                         />
                                                         {
-                                                            deskItem.taskArray.map((item: string, index) => {
+                                                            deskItem.taskArray.map((item: any, index) => {
                                                                 return (
                                                                     <Task 
                                                                         item={item} 
