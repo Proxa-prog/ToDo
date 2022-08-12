@@ -19,10 +19,6 @@ const TaskPage = () => {
     const [nameArray, setNameArray] = useState('');
     const deskList = useTypedSelectors(state => state.desk);
 
-    const deleteTask = (array: any, currentItem: any) => {
-        array.filter((item: any) => item !== currentItem)
-    }
-
     return (
         <section className="task-page">
             <div className="task-page__inner">
@@ -32,8 +28,9 @@ const TaskPage = () => {
                 >
                     Назад
                 </button>
-
+                
                 {deskList.deskList.map((desk: IDesk) => {
+                    console.log(deskList.deskList)
                     if (desk.id === Number(params.taskId)) {
                         return <h1 className="task-page__title" key={Date.now()}>{desk.name}</h1>
                     }
@@ -99,7 +96,12 @@ const TaskPage = () => {
                                                         {
                                                             deskItem.taskArray.map((item: string, index) => {
                                                                 return (
-                                                                    <Task item={item} index={index} desItem={deskItem} deleteTask ={deleteTask}/>
+                                                                    <Task 
+                                                                        item={item} 
+                                                                        index={index} 
+                                                                        deskItem={deskItem.taskArray}
+                                                                        deskList={deskList.deskList}
+                                                                    />
                                                                 )
                                                             })
                                                         }
