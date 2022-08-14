@@ -15,7 +15,7 @@ export const Input = (props: any) => {
             if (e.keyCode === 13 && e.currentTarget) {
                 const name = props.nameArray;
                 props.setNameArray(props.taskName);
-                props.deskItem.taskArray = [...props.deskItem.taskArray, {name: name, status: false}];
+                props.deskItem.taskArray = [...props.deskItem.taskArray, {name: name, status: true}];
                 props.setNameArray('');
             }
         }}

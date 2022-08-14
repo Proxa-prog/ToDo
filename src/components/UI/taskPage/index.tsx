@@ -18,7 +18,7 @@ const TaskPage = () => {
     const [subDeskName, setsubDeskName] = useState('');
     const [nameArray, setNameArray] = useState('');
     const deskList = useTypedSelectors(state => state.desk);
-
+    
     return (
         <section className="task-page">
             <div className="task-page__inner">
@@ -30,7 +30,6 @@ const TaskPage = () => {
                 </button>
                 
                 {deskList.deskList.map((desk: IDesk) => {
-                    console.log(deskList.deskList)
                     if (desk.id === Number(params.taskId)) {
                         return <h1 className="task-page__title" key={Date.now()}>{desk.name}</h1>
                     }
@@ -99,8 +98,6 @@ const TaskPage = () => {
                                                                     <Task 
                                                                         item={item} 
                                                                         index={index} 
-                                                                        deskItem={deskItem.taskArray}
-                                                                        deskList={deskList.deskList}
                                                                     />
                                                                 )
                                                             })

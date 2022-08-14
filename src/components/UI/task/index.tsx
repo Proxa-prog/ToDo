@@ -14,7 +14,6 @@ export const Task = ({item, index}: any) => {
         array.map((desk: IDesk) => {
             if (desk.id === Number(params.taskId)) {
                 desk.array.map((currentTask) => {
-                    console.log(currentTask)
                     const newArray = currentTask.taskArray.filter((task: any) => task.name !== currentItem.name);
                     currentTask.taskArray = [...newArray]
                 })
@@ -23,22 +22,28 @@ export const Task = ({item, index}: any) => {
         return array;
     }
 
-    const performATask = (array: any, currentStatus: any) => {
+    const performATask = (array: any, currentStatus: any, evt: any) => {
         array.map((desk: IDesk) => {
             if (desk.id === Number(params.taskId)) {
-                desk.array.map((currentTask) => {
-                    setComplete(!currentStatus);
-                    currentTask.taskArray.map((task) => task.status = currentStatus);
+                desk.array.map((currentDesk) => {
+                    const newArray = currentDesk.taskArray.map((task) => { 
+                        if (evt.name === task.name) {
+                            setComplete(!currentStatus);
+                            task.status = currentStatus
+                            return task
+                        }
+                        return task
+                    });
+                    currentDesk.taskArray = [...newArray];
+
                 })
             }
         })
-
         return array;
     }
 
-    const dispatchPerformATask = (newDeskList: any, status: boolean) => {
-        const newDeskArray = performATask(newDeskList, status);
-        
+    const dispatchPerformATask = (newDeskList: any, status: boolean, evt: any) => {
+        const newDeskArray = performATask(newDeskList, status, evt);
         dispatch({type: UserListAction.COMPLETE, payload: [...newDeskArray]});
       }
 
@@ -46,11 +51,11 @@ export const Task = ({item, index}: any) => {
         const newDeskArray = deleteTask(newDeskList, Task);
         dispatch({type: UserListAction.REMOVE_TASK, payload: [...newDeskArray]});
       }
-
+      
     return (
-        <div className={complete ? 'task-page__task' : 'task-page__task-complete'} key={index}>
+        <div className={item.status ? 'task-page__task' : 'task-page__task-complete'} key={index}>
             {item.name}
-            <button onClick={() => {dispatchPerformATask(deskList.deskList, complete)}}>
+            <button name={item.name} onClick={(e) => {dispatchPerformATask(deskList.deskList, complete, e.target)}}>
                 +
             </button>
             <button onClick={() => {dispatchDeleteTask(deskList.deskList, item)}}>
