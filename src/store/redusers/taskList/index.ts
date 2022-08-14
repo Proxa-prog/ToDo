@@ -1,13 +1,17 @@
-import { ITaskList, UserListAction } from "../../../type";
+import { IDeskAction, IDeskList, UserListAction } from "../../../type";
 
-const initialState: ITaskList = {
-    taskList: [],
+const initialState: IDeskList = {
+    deskList: [],
 }
 
-export const taskListReduser = (state = initialState, action: any): ITaskList => {
+export const deskListReduser = (state = initialState, action: IDeskAction): IDeskList => {
     switch(action.type) {
         case UserListAction.ADD_TASK:
-            return {...state, taskList: action.payload}
+            return {...state, deskList: action.payload}
+        case UserListAction.REMOVE_TASK:
+            return {deskList: action.payload}
+        case UserListAction.COMPLETE:
+            return {deskList: action.payload}
         default:
             return state
     }

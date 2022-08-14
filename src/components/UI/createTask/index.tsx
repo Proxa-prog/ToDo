@@ -1,8 +1,10 @@
 import { useState } from 'react';
+
 import CreateNewDesk from '../createNewDesk';
+
 import './style.scss';
 
-const CreateTask = ({addId, addTask, id}: any) => {
+const CreateTask = () => {
     const [name, setName] = useState(true);
     
     return (
@@ -13,8 +15,7 @@ const CreateTask = ({addId, addTask, id}: any) => {
             >
                 { name ? 'Новая доска' : 'Свернуть' }
             </button>
-            { name ? null : <CreateNewDesk addId={addId} addTask={addTask} id={id}/> }
-            
+            { name ? null : <CreateNewDesk /> }
         </div>
     );
   }

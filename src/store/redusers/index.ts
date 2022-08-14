@@ -1,14 +1,12 @@
 import { combineReducers } from "redux";
 import { idReduser } from "./id/idReduser";
-import { taskNameReduser } from "./name/name";
-import { taskListReduser } from "./taskList";
-import { nameReduser } from "./taskName/taskName";
+import { taskArrayReduser } from "./taskArray";
+import { deskListReduser } from "./taskList";
 
 export const rootReduser = combineReducers({
     id: idReduser,
-    task: taskListReduser,
-    taskName: taskNameReduser,
-    name: nameReduser,
+    desk: deskListReduser,
+    subDeskArray: taskArrayReduser,
 })
 
 export type RootState = ReturnType<typeof rootReduser>;
