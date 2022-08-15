@@ -30,6 +30,7 @@ export enum IdAction {
 
 export enum ITaskArrayType {
     ADD_TASK_TYPE = 'ADD_TASK_TYPE',
+    REMOVE_TASK_TYPE = 'REMOVE_TASK_TYPE',
 }
 
 export enum UserListAction {
