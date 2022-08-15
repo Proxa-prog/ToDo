@@ -110,6 +110,8 @@
     padding: 3px;
     background-color: rgb(94, 0, 183);
     color: #fff;
+    display: flex;
+    justify-content: space-between;
 }
 
 .task-page__task-complete {
@@ -118,6 +120,12 @@
     color: black;
     padding: 3px;
     background-color: rgb(12, 201, 103);
+    display: flex;
+    justify-content: space-between;
+}
+
+.task-page__button-wrapper {
+    width: 23%;
 }
 
 .task-page__button-back {
@@ -136,5 +144,97 @@
 
     &:active {
         box-shadow: none;
+    }
+}
+
+.task-page__button-complete {
+    border: none;
+    background-color: rgb(15, 209, 32);
+    width: 20px;
+    height: 20px;
+    position: relative;
+    cursor: pointer;
+    margin-left: auto;
+
+    &::before {
+        position: absolute;
+        left: 3px;
+        content: "";
+        width: 10px;
+        height: 2px;
+        background-color: #fff;
+        transform: rotate(45deg);
+    }
+
+    &::after {
+        position: absolute;
+        left: 9px;
+        content: "";
+        width: 10px;
+        height: 2px;
+        background-color: #fff;
+        transform: rotate(-45deg);
+    }
+}
+
+.task-page__button-unComplete {
+    border: none;
+    background-color: rgb(209, 206, 15);
+    width: 20px;
+    height: 20px;
+    position: relative;
+    cursor: pointer;
+    margin-left: auto;
+
+
+    &::before {
+        position: absolute;
+        left: 3px;
+        content: "";
+        width: 10px;
+        height: 2px;
+        background-color: #fff;
+        transform: rotate(45deg);
+    }
+
+    &::after {
+        position: absolute;
+        left: 9px;
+        content: "";
+        width: 10px;
+        height: 2px;
+        background-color: #fff;
+        transform: rotate(-45deg);
+    }
+}
+
+.task-page__button-delete {
+    border: none;
+    background-color: rgb(209, 25, 15);
+    width: 20px;
+    height: 20px;
+    position: relative;
+    cursor: pointer;
+
+    &::before {
+        position: absolute;
+        left: 6px;
+        top: 9px;
+        content: "";
+        width: 10px;
+        height: 2px;
+        background-color: #fff;
+        transform: rotate(45deg);
+    }
+
+    &::after {
+        position: absolute;
+        left: 6px;
+        top: 9px;
+        content: "";
+        width: 10px;
+        height: 2px;
+        background-color: #fff;
+        transform: rotate(-45deg);
     }
 }

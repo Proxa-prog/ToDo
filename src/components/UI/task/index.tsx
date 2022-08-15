@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { useTypedSelectors } from "../../../hooks/useTypedSelectors";
 import { IDesk, ITask, UserListAction } from "../../../type";
 
-export const Task = ({item, index}: any) => {
+export const Task = ({item}: any) => {
     const [complete, setComplete] = useState(false);
     const dispatch = useDispatch();
     const params = useParams();
@@ -15,7 +15,7 @@ export const Task = ({item, index}: any) => {
             if (desk.id === Number(params.taskId)) {
                 desk.array.map((currentTask) => {
                     const newArray = currentTask.taskArray.filter((task: any) => task.name !== currentItem.name);
-                    currentTask.taskArray = [...newArray]
+                    currentTask.taskArray = newArray;
                 })
             }
         })
@@ -53,15 +53,19 @@ export const Task = ({item, index}: any) => {
       }
       
     return (
-        <div className={item.status ? 'task-page__task' : 'task-page__task-complete'} key={index}>
+        <div className={item.status ? 'task-page__task' : 'task-page__task-complete'}>
             {item.name}
-            <button name={item.name} onClick={(e) => {dispatchPerformATask(deskList.deskList, complete, e.target)}}>
-                +
-            </button>
-            <button onClick={() => {dispatchDeleteTask(deskList.deskList, item)}}>
-                X
-            </button>
+            <div className="task-page__button-wrapper">
+                <button 
+                    className={item.status ? 'task-page__button-complete' : 'task-page__button-unComplete'} 
+                    name={item.name} 
+                    onClick={(e) => {dispatchPerformATask(deskList.deskList, complete, e.target)}}
+                ></button>
+                <button 
+                    className="task-page__button-delete" 
+                    onClick={() => {dispatchDeleteTask(deskList.deskList, item)}}
+                ></button>
+            </div>
         </div>
     )
 }
-

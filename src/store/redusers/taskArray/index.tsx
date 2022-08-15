@@ -8,6 +8,8 @@ export const taskArrayReduser = (state = initialState, action: ITaskArrayAction)
     switch(action.type) {
         case ITaskArrayType.ADD_TASK_TYPE:
             return {...state, subDeskArray: action.payload}
+        case ITaskArrayType.REMOVE_TASK_TYPE:
+            return {subDeskArray: action.payload}
         default:
             return state
     }
