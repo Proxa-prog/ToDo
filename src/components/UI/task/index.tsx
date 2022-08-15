@@ -5,7 +5,7 @@ import { useTypedSelectors } from "../../../hooks/useTypedSelectors";
 import { IDesk, ITask, UserListAction } from "../../../type";
 
 export const Task = ({item, index}: any) => {
-    const [complete, setComplete] = useState(true);
+    const [complete, setComplete] = useState(false);
     const dispatch = useDispatch();
     const params = useParams();
     const deskList = useTypedSelectors(state => state.desk);
