@@ -1,40 +1,40 @@
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+
 import { useTypedSelectors } from "../../../hooks/useTypedSelectors";
-import { IDesk, ITask, ITaskArrayType } from "../../../type";
+
+import { IDesk, UserListAction } from "../../../type";
 import { Input } from "../input";
 import { Task } from "../task";
 
-export const Li = ({deskItem, desk, nameArray, setNameArray}: any) => {
+export const Li = ({ deskItem, desk, nameArray, setNameArray }: any) => {
     const params = useParams();
     const dispatch = useDispatch();
-    const {deskList} = useTypedSelectors(state => state.desk);
+    const { deskList } = useTypedSelectors(state => state.desk);
 
-    const deleteDesk = (array: any, currentItem: any) => {
+    const deleteSubDesk = (array: any, currentItem: any) => {
         array.map((desk: IDesk) => {
             if (desk.id === Number(params.taskId)) {
-                const newArray = desk.array.filter((currentDesk) => currentDesk.name !== currentItem);
+                const newArray = desk.array.filter((currentDesk) => currentDesk.id !== currentItem);
                 desk.array = [...newArray];
             }
+            return desk;
         })
-        // return array
+        return array;
     }
 
-    const dispatchdeleteDesk = (desk: any, currentItem: any) => {
-        const newDeskArray = deleteDesk(desk, currentItem);
-        console.log(newDeskArray)
+    const dispatchDeleteSubDesk = (desk: any, currentItem: any) => {
+        const newDeskArray = deleteSubDesk(desk, currentItem);
+        dispatch({ type: UserListAction.REMOVE_SUB_DESK, payload: [...newDeskArray] });
+    }
 
-        // dispatch({type: ITaskArrayType.REMOVE_TASK_TYPE, payload: [...newDeskArray]});
-      }
-    
     return (
         <li className="task-page__task-name-item" key={desk.id}>
             <>
-                <button 
-                    name={deskItem.name}
+                <button
+                    name={deskItem.id}
                     onClick={(e) => {
-                        deleteDesk(deskList, e.currentTarget.name);
+                        dispatchDeleteSubDesk(deskList, e.currentTarget.name);
                     }}
                 >
                     Удалить
@@ -42,7 +42,7 @@ export const Li = ({deskItem, desk, nameArray, setNameArray}: any) => {
 
                 <h2>{deskItem.name}</h2>
 
-                <Input 
+                <Input
                     nameArray={nameArray}
                     setNameArray={setNameArray}
                     deskItem={deskItem}
@@ -50,9 +50,9 @@ export const Li = ({deskItem, desk, nameArray, setNameArray}: any) => {
                 {
                     deskItem.taskArray.map((item: any) => {
                         return (
-                            <Task 
+                            <Task
                                 key={item.id}
-                                item={item} 
+                                item={item}
                             />
                         )
                     })

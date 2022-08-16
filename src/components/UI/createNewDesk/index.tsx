@@ -11,21 +11,16 @@ const CreateNewDesk = () => {
     const dispatch = useDispatch();
     const [name, setName] = useState('');
     const addDesk = useTypedSelectors(state => state.desk);
-    const { subDeskArray } = useTypedSelectors(state => state.subDeskArray);
     const idState = useTypedSelectors(state => state.id);
 
     const addId = () => {
         dispatch({ type: IdAction.ADD_ID, payload: idState?.id });
     }
 
-    const addTaskInArray = () => {
-        dispatch({ type: ITaskArrayType.ADD_TASK_TYPE, payload: [...subDeskArray, []] });
-    }
-
     const createDesk = (desk: IDesk) => {
         dispatch({ type: UserListAction.ADD_TASK, payload: [...addDesk.deskList, desk] });
     }
-    
+
     return (
         <div className='main__create-desk'>
             <label htmlFor="desk-name">Название доски</label>

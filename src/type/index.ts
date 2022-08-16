@@ -10,6 +10,7 @@ export interface ITask {
 
 export interface ISubTaskArray {
     name: string;
+    id: string;
     taskArray: ITask[];
 }
 
@@ -56,6 +57,7 @@ export enum UserListAction {
     ADD_TASK = 'ADD_TASK',
     REMOVE_TASK = 'REMOVE_TASK',
     COMPLETE = 'COMPLETE',
+    REMOVE_SUB_DESK = 'REMOVE_SUB_DESK',
 }
 
 export enum SubDeskType {

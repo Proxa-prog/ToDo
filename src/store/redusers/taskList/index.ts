@@ -12,6 +12,8 @@ export const deskListReduser = (state = initialState, action: IDeskAction): IDes
             return {deskList: action.payload}
         case UserListAction.COMPLETE:
             return {deskList: action.payload}
+        case UserListAction.REMOVE_SUB_DESK:
+            return {deskList: action.payload}
         default:
             return state
     }
