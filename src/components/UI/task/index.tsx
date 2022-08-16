@@ -1,8 +1,9 @@
-import { nanoid } from "nanoid";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+
 import { useTypedSelectors } from "../../../hooks/useTypedSelectors";
+
 import { IDesk, ITask, UserListAction } from "../../../type";
 
 export const Task = ({ item }: any) => {

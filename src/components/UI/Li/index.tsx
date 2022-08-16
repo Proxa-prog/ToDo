@@ -4,8 +4,8 @@ import { useParams } from "react-router-dom";
 import { useTypedSelectors } from "../../../hooks/useTypedSelectors";
 
 import { IDesk, UserListAction } from "../../../type";
-import { Input } from "../Input";
-import { Task } from "../Task";
+import { Input } from "../input";
+import { Task } from "../task";
 
 export const Li = ({ deskItem, desk, nameArray, setNameArray }: any) => {
     const params = useParams();
