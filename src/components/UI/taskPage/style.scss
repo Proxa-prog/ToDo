@@ -25,6 +25,7 @@
     border-radius: 20px;
     padding: 30px 0;
     text-align: center;
+    align-items: center;
 }
 
 .task-page__button {
@@ -92,6 +93,7 @@
 .task-page__task-name-list {
     display: flex;
     flex-wrap: wrap;
+    align-items: flex-start;
 }
 
 .task-page__task-name-item {
@@ -126,6 +128,8 @@
 
 .task-page__button-wrapper {
     width: 23%;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .task-page__button-back {

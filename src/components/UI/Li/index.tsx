@@ -2,14 +2,14 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useTypedSelectors } from "../../../hooks/useTypedSelectors";
-import { IDesk, ITaskArrayType } from "../../../type";
+import { IDesk, ITask, ITaskArrayType } from "../../../type";
 import { Input } from "../input";
 import { Task } from "../task";
 
 export const Li = ({deskItem, desk, nameArray, setNameArray}: any) => {
     const params = useParams();
     const dispatch = useDispatch();
-    const deskList = useTypedSelectors(state => state.desk);
+    const {deskList} = useTypedSelectors(state => state.desk);
 
     const deleteDesk = (array: any, currentItem: any) => {
         array.map((desk: IDesk) => {
@@ -34,7 +34,7 @@ export const Li = ({deskItem, desk, nameArray, setNameArray}: any) => {
                 <button 
                     name={deskItem.name}
                     onClick={(e) => {
-                        deleteDesk(deskList.deskList, e.currentTarget.name);
+                        deleteDesk(deskList, e.currentTarget.name);
                     }}
                 >
                     Удалить
@@ -48,11 +48,11 @@ export const Li = ({deskItem, desk, nameArray, setNameArray}: any) => {
                     deskItem={deskItem}
                 />
                 {
-                    deskItem.taskArray.map((item: any, index: any) => {
+                    deskItem.taskArray.map((item: any) => {
                         return (
                             <Task 
+                                key={item.id}
                                 item={item} 
-                                index={index} 
                             />
                         )
                     })

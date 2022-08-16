@@ -5,9 +5,10 @@ export interface IStateId {
 export interface ITask {
     name: string;
     status: boolean;
+    id: string;
 }
 
-export interface ISubTaskArray{
+export interface ISubTaskArray {
     name: string;
     taskArray: ITask[];
 }
@@ -21,22 +22,6 @@ export interface IDesk {
 export interface IId {
     type: string;
     payload: number;
-}
-
-export enum IdAction {
-    ADD_ID  = 'ADD_ID',
-    REMOVE_ID = 'REMOVE_ID',
-}
-
-export enum ITaskArrayType {
-    ADD_TASK_TYPE = 'ADD_TASK_TYPE',
-    REMOVE_TASK_TYPE = 'REMOVE_TASK_TYPE',
-}
-
-export enum UserListAction {
-    ADD_TASK = 'ADD_TASK',
-    REMOVE_TASK = 'REMOVE_TASK',
-    COMPLETE = 'COMPLETE',
 }
 
 export interface IDeskAction {
@@ -57,4 +42,23 @@ export interface ITaskArray {
     subDeskArray: any[];
 }
 
+export enum IdAction {
+    ADD_ID  = 'ADD_ID',
+    REMOVE_ID = 'REMOVE_ID',
+}
 
+export enum ITaskArrayType {
+    ADD_TASK_TYPE = 'ADD_TASK_TYPE',
+    REMOVE_TASK_TYPE = 'REMOVE_TASK_TYPE',
+}
+
+export enum UserListAction {
+    ADD_TASK = 'ADD_TASK',
+    REMOVE_TASK = 'REMOVE_TASK',
+    COMPLETE = 'COMPLETE',
+}
+
+export enum SubDeskType {
+    ADD_SUB_DESK = 'ADD_SUB_DESK',
+    REMOVE_SUB_DESK = 'REMOVE_SUB_DESK',
+}

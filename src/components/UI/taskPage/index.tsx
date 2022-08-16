@@ -16,8 +16,8 @@ const TaskPage = () => {
     const [open, setOpen] = useState(true);
     const [subDeskName, setsubDeskName] = useState('');
     const [nameArray, setNameArray] = useState('');
-    const deskList = useTypedSelectors(state => state.desk);
-    console.log(deskList.deskList)
+    const {deskList} = useTypedSelectors(state => state.desk);
+    console.log(deskList)
     return (
         <section className="task-page">
             <div className="task-page__inner">
@@ -28,7 +28,7 @@ const TaskPage = () => {
                     Назад
                 </button>
                 
-                {deskList.deskList.map((desk: IDesk) => {
+                {deskList.map((desk: IDesk) => {
                     if (desk.id === Number(params.taskId)) {
                         return <h1 className="task-page__title" key={Date.now()}>{desk.name}</h1>
                     }
@@ -61,7 +61,7 @@ const TaskPage = () => {
                                     onKeyDown={(e) => {
                                         if (e.keyCode === 13) {
                                             {
-                                                deskList.deskList.map((desk: IDesk) => {
+                                                deskList.map((desk: IDesk) => {
                                                     if (desk.id === Number(params.taskId)) {
                                                         const newSubDeskArray = { name: subDeskName, taskArray: []};
                                                         desk.array = [...desk.array, newSubDeskArray]
@@ -78,10 +78,13 @@ const TaskPage = () => {
                 <div>
                     <ul className="task-page__task-name-list">
                         {
-                            deskList.deskList.map((desk: IDesk) => {
+                            deskList.map((desk: IDesk) => {
                                 if (desk.id === Number(params.taskId)) {
+
                                     return (
-                                        desk.array.map((deskItem: ISubTaskArray, index: number) => {
+                                        desk.array.map((deskItem: ISubTaskArray, index) => {
+                                            const liId = nanoid();
+
                                             return (
                                                 <Li
                                                     key={index}
@@ -90,38 +93,6 @@ const TaskPage = () => {
                                                     nameArray={nameArray}
                                                     setNameArray={setNameArray}
                                                 />
-                                                // <li className="task-page__task-name-item" key={desk.id}>
-                                                //     <>
-                                                //         <button 
-                                                //             name={deskItem.name}
-                                                //             onClick={(e) => {
-                                                //                 if(e.currentTarget.name === deskItem.name) {
-                                                //                     dispatchdeleteDesk(deskList.deskList, e.currentTarget.name);
-                                                //                 }
-                                                //             }}
-                                                //         >
-                                                //             Удалить
-                                                //         </button>
-
-                                                //         <h2>{deskItem.name}</h2>
-
-                                                //         <Input 
-                                                //             nameArray={nameArray}
-                                                //             setNameArray={setNameArray}
-                                                //             deskItem={deskItem}
-                                                //         />
-                                                //         {
-                                                //             deskItem.taskArray.map((item: any, index) => {
-                                                //                 return (
-                                                //                     <Task 
-                                                //                         item={item} 
-                                                //                         index={index} 
-                                                //                     />
-                                                //                 )
-                                                //             })
-                                                //         }
-                                                //     </>
-                                                // </li>
                                             )
                                         })
                                     )
