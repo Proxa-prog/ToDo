@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import CreateNewDesk from '../createNewDesk';
+import CreateNewDesk from '../CreateNewDesk';
 
 import './style.scss';
 

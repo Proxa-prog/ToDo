@@ -1,5 +1,5 @@
-import CreateTask from '../UI/createTask';
-import TaskList from '../UI/taskList';
+import CreateTask from '../UI/CreateTask';
+import TaskList from '../UI/TaskList';
 
 import './style.scss';
 
