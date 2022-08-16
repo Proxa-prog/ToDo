@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import Main from '../Main';
-import Error from '../Error';
-import TaskPage from '../UI/TaskPage';
+import Main from '../main';
+import Error from '../error';
+import TaskPage from '../UI/taskPage';
 
 import './style.scss';
 
