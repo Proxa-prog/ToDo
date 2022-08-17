@@ -1,22 +1,41 @@
 import { nanoid } from "nanoid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { useTypedSelectors } from "../../../hooks/useTypedSelectors";
 
-import { IDesk, ISubTaskArray } from "../../../type";
+import { IDesk, ISubTaskArray, UserListAction } from "../../../type";
 import { Li } from "../Li";
 
 import './style.scss';
 
 
 const TaskPage = () => {
+    const dispatch = useDispatch();
     const router = useNavigate();
     const params = useParams();
     const [open, setOpen] = useState(true);
     const [subDeskName, setsubDeskName] = useState('');
     const [nameArray, setNameArray] = useState('');
     const { deskList } = useTypedSelectors(state => state.desk);
+    console.log(deskList)
+
+    const updateDeskList = (storage: any) => {
+        if (storage !== null) {
+            const stateFromLocalStorage = JSON.parse(storage);
+            dispatch({ type: UserListAction.ADD_STORE_IN_LOCAL_STORAGE, payload: stateFromLocalStorage });
+        }
+    }
+
+    useEffect(() => {
+        updateDeskList(window.localStorage.getItem('addDesk'));
+    }, []);
+
+    useEffect(() => {
+        window.localStorage.setItem('addDesk', JSON.stringify(deskList));
+    }, [deskList]);
+
 
     return (
         <section className="task-page">

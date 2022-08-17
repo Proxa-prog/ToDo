@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { useTypedSelectors } from '../../../hooks/useTypedSelectors';
@@ -10,15 +10,30 @@ import './style.scss';
 const CreateNewDesk = () => {
     const dispatch = useDispatch();
     const [name, setName] = useState('');
-    const addDesk = useTypedSelectors(state => state.desk);
+    const { deskList } = useTypedSelectors(state => state.desk);
     const idState = useTypedSelectors(state => state.id);
+
+    const updateDeskList = (storage: any) => {
+        if (storage !== null) {
+            const stateFromLocalStorage = JSON.parse(storage);
+            dispatch({ type: UserListAction.ADD_STORE_IN_LOCAL_STORAGE, payload: stateFromLocalStorage });
+        }
+    }
+
+    useEffect(() => {
+        updateDeskList(window.localStorage.getItem('addDesk'));
+    }, []);
+
+    useEffect(() => {
+        window.localStorage.setItem('addDesk', JSON.stringify(deskList));
+    }, [deskList]);
 
     const addId = () => {
         dispatch({ type: IdAction.ADD_ID, payload: idState?.id });
     }
 
     const createDesk = (desk: IDesk) => {
-        dispatch({ type: UserListAction.ADD_TASK, payload: [...addDesk.deskList, desk] });
+        dispatch({ type: UserListAction.ADD_TASK, payload: [...deskList, desk] });
     }
 
     return (

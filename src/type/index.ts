@@ -20,6 +20,10 @@ export interface IDesk {
     array: ISubTaskArray[];
 }
 
+export interface IDeskList {
+    deskList: IDesk[];
+}
+
 export interface IId {
     type: string;
     payload: number;
@@ -33,10 +37,6 @@ export interface IDeskAction {
 export interface ITaskArrayAction {
     type: ITaskArrayType,
     payload: [],
-}
-
-export interface IDeskList {
-    deskList: IDesk[];
 }
 
 export interface ITaskArray {
@@ -57,6 +57,7 @@ export enum UserListAction {
     ADD_TASK = 'ADD_TASK',
     REMOVE_TASK = 'REMOVE_TASK',
     COMPLETE = 'COMPLETE',
+    ADD_STORE_IN_LOCAL_STORAGE = 'ADD_STORE_IN_LOCAL_STORAGE',
     REMOVE_SUB_DESK = 'REMOVE_SUB_DESK',
 }
 

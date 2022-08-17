@@ -14,6 +14,8 @@ export const deskListReduser = (state = initialState, action: IDeskAction): IDes
             return {deskList: action.payload}
         case UserListAction.REMOVE_SUB_DESK:
             return {deskList: action.payload}
+        case UserListAction.ADD_STORE_IN_LOCAL_STORAGE:
+            return {deskList: action.payload}
         default:
             return state
     }
