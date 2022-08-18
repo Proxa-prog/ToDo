@@ -1,22 +1,40 @@
 import { nanoid } from "nanoid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { useTypedSelectors } from "../../../hooks/useTypedSelectors";
 
-import { IDesk, ISubTaskArray } from "../../../type";
+import { IDesk, ISubTaskArray, UserListAction } from "../../../type";
 import { Li } from "../Li";
 
 import './style.scss';
 
 
 const TaskPage = () => {
+    const dispatch = useDispatch();
     const router = useNavigate();
     const params = useParams();
     const [open, setOpen] = useState(true);
     const [subDeskName, setsubDeskName] = useState('');
     const [nameArray, setNameArray] = useState('');
     const { deskList } = useTypedSelectors(state => state.desk);
+
+    const updateDeskList = (storage: any) => {
+        if (storage !== null) {
+            const stateFromLocalStorage = JSON.parse(storage);
+            dispatch({ type: UserListAction.ADD_STORE_IN_LOCAL_STORAGE, payload: stateFromLocalStorage });
+        }
+    }
+
+    useEffect(() => {
+        updateDeskList(window.localStorage.getItem('addDesk'));
+    }, []);
+
+    useEffect(() => {
+        window.localStorage.setItem('addDesk', JSON.stringify(deskList));
+    }, [deskList]);
+
 
     return (
         <section className="task-page">
@@ -29,7 +47,7 @@ const TaskPage = () => {
                 </button>
 
                 {deskList.map((desk: IDesk) => {
-                    if (desk.id === Number(params.taskId)) {
+                    if (desk.id === params.taskId) {
                         return <h1 className="task-page__title" key={Date.now()}>{desk.name}</h1>
                     }
                 })}
@@ -52,7 +70,7 @@ const TaskPage = () => {
                                     <span className="task-page__span"></span>
                                 </button>
                                 <input
-                                    id="dubDeskId"
+                                    id="subDeskId"
                                     className="task-page__input"
                                     type="text"
                                     placeholder="Название задачи"
@@ -62,7 +80,7 @@ const TaskPage = () => {
                                         if (e.keyCode === 13 && subDeskName !== '') {
                                             {
                                                 deskList.map((desk: IDesk) => {
-                                                    if (desk.id === Number(params.taskId)) {
+                                                    if (desk.id === params.taskId) {
                                                         const subDeskId = nanoid();
                                                         const newSubDeskArray = { name: subDeskName, taskArray: [], id: subDeskId };
                                                         desk.array = [...desk.array, newSubDeskArray]
@@ -80,7 +98,7 @@ const TaskPage = () => {
                     <ul className="task-page__task-name-list">
                         {
                             deskList.map((desk: IDesk) => {
-                                if (desk.id === Number(params.taskId)) {
+                                if (desk.id === params.taskId) {
 
                                     return (
                                         desk.array.map((deskItem: ISubTaskArray) => {

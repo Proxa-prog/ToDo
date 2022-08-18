@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { nanoid } from 'nanoid';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { useTypedSelectors } from '../../../hooks/useTypedSelectors';
@@ -10,16 +11,26 @@ import './style.scss';
 const CreateNewDesk = () => {
     const dispatch = useDispatch();
     const [name, setName] = useState('');
-    const addDesk = useTypedSelectors(state => state.desk);
-    const idState = useTypedSelectors(state => state.id);
+    const { deskList } = useTypedSelectors(state => state.desk);
 
-    const addId = () => {
-        dispatch({ type: IdAction.ADD_ID, payload: idState?.id });
+    const updateDeskList = (storage: any) => {
+        if (storage !== null) {
+            const stateFromLocalStorage = JSON.parse(storage);
+            dispatch({ type: UserListAction.ADD_STORE_IN_LOCAL_STORAGE, payload: stateFromLocalStorage });
+        }
     }
-
+    
     const createDesk = (desk: IDesk) => {
-        dispatch({ type: UserListAction.ADD_TASK, payload: [...addDesk.deskList, desk] });
+        dispatch({ type: UserListAction.ADD_TASK, payload: [...deskList, desk] });
     }
+
+    useEffect(() => {
+        updateDeskList(window.localStorage.getItem('addDesk'));
+    }, []);
+
+    useEffect(() => {
+        window.localStorage.setItem('addDesk', JSON.stringify(deskList));
+    }, [deskList]);
 
     return (
         <div className='main__create-desk'>
@@ -35,9 +46,9 @@ const CreateNewDesk = () => {
             <button
                 className='main__add-desk'
                 onClick={() => {
-                    addId()
+                    const deskId = nanoid();
                     const array: ISubTaskArray[] = [];
-                    createDesk({ name, id: idState.id, array })
+                    createDesk({ name, id: deskId, array });
                 }}
             >
                 Добавить

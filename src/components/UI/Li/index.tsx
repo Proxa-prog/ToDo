@@ -14,7 +14,7 @@ export const Li = ({ deskItem, desk, nameArray, setNameArray }: any) => {
 
     const deleteSubDesk = (array: any, currentItem: any) => {
         array.map((desk: IDesk) => {
-            if (desk.id === Number(params.taskId)) {
+            if (desk.id === params.taskId) {
                 const newArray = desk.array.filter((currentDesk) => currentDesk.id !== currentItem);
                 desk.array = [...newArray];
             }
