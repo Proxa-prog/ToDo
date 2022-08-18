@@ -14,7 +14,7 @@ export const Task = ({ item }: any) => {
 
     const deleteTask = (array: any, currentItem: ITask) => {
         array.map((desk: IDesk) => {
-            if (desk.id === Number(params.taskId)) {
+            if (desk.id === params.taskId) {
                 desk.array.map((currentTask) => {
                     const newArray = currentTask.taskArray.filter((task: ITask) => task.id !== currentItem.id);
                     currentTask.taskArray = newArray;
@@ -27,7 +27,7 @@ export const Task = ({ item }: any) => {
 
     const confirmTask = (array: any, currentStatus: boolean, evt: any) => {
         array.map((desk: IDesk) => {
-            if (desk.id === Number(params.taskId)) {
+            if (desk.id === params.taskId) {
                 desk.array.map((currentDesk) => {
                     const newArray = currentDesk.taskArray.map((task) => {
                         if (evt.name === task.id) {

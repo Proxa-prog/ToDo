@@ -15,7 +15,7 @@ export interface ISubTaskArray {
 }
 
 export interface IDesk {
-    id: number;
+    id: string;
     name: string;
     array: ISubTaskArray[];
 }
@@ -46,6 +46,7 @@ export interface ITaskArray {
 export enum IdAction {
     ADD_ID  = 'ADD_ID',
     REMOVE_ID = 'REMOVE_ID',
+    GET_ID = 'GET_ID',
 }
 
 export enum ITaskArrayType {

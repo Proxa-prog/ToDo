@@ -19,7 +19,6 @@ const TaskPage = () => {
     const [subDeskName, setsubDeskName] = useState('');
     const [nameArray, setNameArray] = useState('');
     const { deskList } = useTypedSelectors(state => state.desk);
-    console.log(deskList)
 
     const updateDeskList = (storage: any) => {
         if (storage !== null) {
@@ -48,7 +47,7 @@ const TaskPage = () => {
                 </button>
 
                 {deskList.map((desk: IDesk) => {
-                    if (desk.id === Number(params.taskId)) {
+                    if (desk.id === params.taskId) {
                         return <h1 className="task-page__title" key={Date.now()}>{desk.name}</h1>
                     }
                 })}
@@ -71,7 +70,7 @@ const TaskPage = () => {
                                     <span className="task-page__span"></span>
                                 </button>
                                 <input
-                                    id="dubDeskId"
+                                    id="subDeskId"
                                     className="task-page__input"
                                     type="text"
                                     placeholder="Название задачи"
@@ -81,7 +80,7 @@ const TaskPage = () => {
                                         if (e.keyCode === 13 && subDeskName !== '') {
                                             {
                                                 deskList.map((desk: IDesk) => {
-                                                    if (desk.id === Number(params.taskId)) {
+                                                    if (desk.id === params.taskId) {
                                                         const subDeskId = nanoid();
                                                         const newSubDeskArray = { name: subDeskName, taskArray: [], id: subDeskId };
                                                         desk.array = [...desk.array, newSubDeskArray]
@@ -99,7 +98,7 @@ const TaskPage = () => {
                     <ul className="task-page__task-name-list">
                         {
                             deskList.map((desk: IDesk) => {
-                                if (desk.id === Number(params.taskId)) {
+                                if (desk.id === params.taskId) {
 
                                     return (
                                         desk.array.map((deskItem: ISubTaskArray) => {
