@@ -3,11 +3,11 @@ import { useParams } from "react-router-dom";
 
 import { useTypedSelectors } from "../../../hooks/useTypedSelectors";
 
-import { IDesk, UserListAction } from "../../../type";
+import { IDesk, ITask, UserListAction } from "../../../type";
 import { Input } from "../input";
 import { Task } from "../task";
 
-export const Li = ({ deskItem, desk, nameArray, setNameArray }: any) => {
+export const Li = ({ deskItem, desk, nameArray, setNameArray, deleteTask, confirmTask }: any) => {
     const params = useParams();
     const dispatch = useDispatch();
     const { deskList } = useTypedSelectors(state => state.desk);
@@ -48,11 +48,14 @@ export const Li = ({ deskItem, desk, nameArray, setNameArray }: any) => {
                     deskItem={deskItem}
                 />
                 {
-                    deskItem.taskArray.map((item: any) => {
+                    deskItem.taskArray.map((item: ITask, index: number) => {
                         return (
                             <Task
-                                key={item.id}
+                                key={index}
+                                index={item.id}
                                 item={item}
+                                confirmTask={confirmTask}
+                                deleteTask={deleteTask}
                             />
                         )
                     })

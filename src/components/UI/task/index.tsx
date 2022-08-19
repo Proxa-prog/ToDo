@@ -1,77 +1,46 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { FC } from "react";
 
-import { useTypedSelectors } from "../../../hooks/useTypedSelectors";
+interface ITaskIn {
+    item: any;
+    index: string;
+    deleteTask: (index: string) => void;
+    confirmTask: (index: string) => void;
+}
 
-import { IDesk, ITask, UserListAction } from "../../../type";
+export const Task: FC<ITaskIn> = (props) => {
+    const {
+        item,
+        index,
+        deleteTask,
+        confirmTask,
+    } = props;
 
-export const Task = ({ item }: any) => {
-    const [complete, setComplete] = useState(false);
-    const dispatch = useDispatch();
-    const params = useParams();
-    const { deskList } = useTypedSelectors(state => state.desk);
-
-    const deleteTask = (array: any, currentItem: ITask) => {
-        array.map((desk: IDesk) => {
-            if (desk.id === params.taskId) {
-                desk.array.map((currentTask) => {
-                    const newArray = currentTask.taskArray.filter((task: ITask) => task.id !== currentItem.id);
-                    currentTask.taskArray = newArray;
-                });
-            }
-        });
-
-        return array;
+    const onClickConfirmTask = (index: string) => {
+        confirmTask(index);
     }
 
-    const confirmTask = (array: any, currentStatus: boolean, evt: any) => {
-        array.map((desk: IDesk) => {
-            if (desk.id === params.taskId) {
-                desk.array.map((currentDesk) => {
-                    const newArray = currentDesk.taskArray.map((task) => {
-                        if (evt.name === task.id) {
-                            setComplete(!currentStatus);
-                            task.status = currentStatus
-
-                            return task;
-                        }
-
-                        return task;
-                    });
-                    currentDesk.taskArray = [...newArray];
-
-                });
-            }
-        });
-
-        return array;
-    }
-
-    const dispatchPerformATask = (newDeskList: any, status: boolean, evt: any) => {
-        const newDeskArray = confirmTask(newDeskList, status, evt);
-        dispatch({ type: UserListAction.COMPLETE, payload: [...newDeskArray] });
-    }
-
-    const dispatchDeleteTask = (newDeskList: any, Task: ITask) => {
-        const newDeskArray = deleteTask(newDeskList, Task);
-        dispatch({ type: UserListAction.REMOVE_TASK, payload: [...newDeskArray] });
+    const onClickDeleteTask = (index: string) => {
+        deleteTask(index);
     }
 
     return (
-        <div className={item.status ? 'task-page__task' : 'task-page__task-complete'}>
+        <div className={item.isConfirmed ? 'task-page__task-complete' : 'task-page__task'}>
             {item.name}
             <div className="task-page__button-wrapper">
                 <button
-                    className={item.status ? 'task-page__button-complete' : 'task-page__button-unComplete'}
-                    name={item.id}
-                    onClick={(e) => { dispatchPerformATask(deskList, complete, e.target) }}
+                    className={item.isConfirmed ? 'task-page__button-unComplete' : 'task-page__button-complete'}
+                    name={item.name}
+                    onClick={() => {
+                        onClickConfirmTask(index);
+                    }}
                 ></button>
                 <button
                     className="task-page__button-delete"
-                    onClick={() => { dispatchDeleteTask(deskList, item) }}
+                    onClick={() => {
+                        onClickDeleteTask(index)
+                    }}
                 ></button>
             </div>
         </div>
     )
-}
+};

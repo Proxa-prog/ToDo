@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { useTypedSelectors } from "../../../hooks/useTypedSelectors";
 
-import { IDesk, ISubTaskArray, UserListAction } from "../../../type";
+import { IDesk, ISubTaskArray, ITask, UserListAction } from "../../../type";
 import { Li } from "../Li";
 
 import './style.scss';
@@ -20,6 +20,64 @@ const TaskPage = () => {
     const [nameArray, setNameArray] = useState('');
     const { deskList } = useTypedSelectors(state => state.desk);
 
+    const deleteTask = (taskIndex: string) => {
+        const newList = deskList.map((desk: IDesk) => {
+            if (desk.id === params.taskId) {
+                const newDesk = desk.array.map((currentTask) => {
+                    const taskArray = currentTask.taskArray.filter((task: ITask, index) => task.id !== taskIndex);
+
+                    return {
+                        ...currentTask,
+                        taskArray,
+                    }
+                });
+
+                return {
+                    ...desk,
+                    array: newDesk,
+                }
+            }
+
+            return desk;
+
+        });
+
+        dispatch({ type: UserListAction.REMOVE_TASK, payload: [...newList] });
+    };
+
+    const confirmTask = (taskIndex: string) => {
+        const newList = deskList.map((desk: IDesk) => {
+            if (desk.id === params.taskId) {
+                const newDesk = desk.array.map((currentDesk) => {
+                    const taskArray = currentDesk.taskArray.map((task, index) => {
+                        if (task.id === taskIndex) {
+                            return {
+                                ...task,
+                                isConfirmed: !task.isConfirmed,
+                            }
+                        }
+
+                        return task;
+                    });
+
+                    return {
+                        ...currentDesk,
+                        taskArray,
+                    }
+                });
+
+                return {
+                    ...desk,
+                    array: newDesk,
+                }
+            }
+
+            return desk;
+        });
+
+        dispatch({ type: UserListAction.COMPLETE, payload: [...newList] });
+    };
+    
     const updateDeskList = (storage: any) => {
         if (storage !== null) {
             const stateFromLocalStorage = JSON.parse(storage);
@@ -78,16 +136,16 @@ const TaskPage = () => {
                                     onChange={(e) => { setsubDeskName(e.target.value) }}
                                     onKeyDown={(e) => {
                                         if (e.keyCode === 13 && subDeskName !== '') {
-                                            {
-                                                deskList.map((desk: IDesk) => {
-                                                    if (desk.id === params.taskId) {
-                                                        const subDeskId = nanoid();
-                                                        const newSubDeskArray = { name: subDeskName, taskArray: [], id: subDeskId };
-                                                        desk.array = [...desk.array, newSubDeskArray]
-                                                        setsubDeskName('')
-                                                    }
-                                                })
-                                            }
+                                            deskList.map((desk: IDesk) => {
+                                                if (desk.id === params.taskId) {
+                                                    const subDeskId = nanoid();
+                                                    const newSubDeskArray = { name: subDeskName, taskArray: [], id: subDeskId };
+                                                    desk.array = [...desk.array, newSubDeskArray]
+                                                    setsubDeskName('')
+                                                }
+
+                                                return desk;
+                                            })
                                         }
                                     }}
                                 />
@@ -109,6 +167,8 @@ const TaskPage = () => {
                                                     desk={desk}
                                                     nameArray={nameArray}
                                                     setNameArray={setNameArray}
+                                                    confirmTask={confirmTask}
+                                                    deleteTask={deleteTask}
                                                 />
                                             )
                                         })

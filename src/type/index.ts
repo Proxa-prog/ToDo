@@ -5,6 +5,7 @@ export interface IStateId {
 export interface ITask {
     name: string;
     status: boolean;
+    isConfirmed: boolean;
     id: string;
 }
 
