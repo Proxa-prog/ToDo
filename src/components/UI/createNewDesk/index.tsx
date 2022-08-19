@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import { useTypedSelectors } from '../../../hooks/useTypedSelectors';
 
-import { IdAction, IDesk, ISubTaskArray, UserListAction } from '../../../type';
+import { IDesk, ISubTaskArray, UserListAction } from '../../../type';
 
 import './style.scss';
 

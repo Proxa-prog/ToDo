@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useTypedSelectors } from '../../../hooks/useTypedSelectors';
-import { IdAction, UserListAction } from '../../../type';
+import { UserListAction } from '../../../type';
 
 import CreateNewDesk from '../createNewDesk';
 
