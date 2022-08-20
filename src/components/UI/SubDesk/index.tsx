@@ -7,12 +7,12 @@ import { IDesk, ITask, UserListAction } from "../../../type";
 import { Input } from "../input";
 import { Task } from "../task";
 
-export const Li = ({ deskItem, desk, nameArray, setNameArray, deleteTask, confirmTask }: any) => {
+export const SubDesk = ({ deskItem, desk, nameArray, setNameArray, deleteTask, confirmTask }: any) => {
     const params = useParams();
     const dispatch = useDispatch();
     const { deskList } = useTypedSelectors(state => state.desk);
 
-    const deleteSubDesk = (array: any, currentItem: any) => {
+    const deleteSubDesk = (array: IDesk[], currentItem: string) => {
         array.map((desk: IDesk) => {
             if (desk.id === params.taskId) {
                 const newArray = desk.array.filter((currentDesk) => currentDesk.id !== currentItem);
@@ -23,7 +23,7 @@ export const Li = ({ deskItem, desk, nameArray, setNameArray, deleteTask, confir
         return array;
     }
 
-    const dispatchDeleteSubDesk = (desk: any, currentItem: any) => {
+    const dispatchDeleteSubDesk = (desk: IDesk[], currentItem: string) => {
         const newDeskArray = deleteSubDesk(desk, currentItem);
         dispatch({ type: UserListAction.REMOVE_SUB_DESK, payload: [...newDeskArray] });
     }

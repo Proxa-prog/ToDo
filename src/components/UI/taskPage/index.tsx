@@ -6,7 +6,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useTypedSelectors } from "../../../hooks/useTypedSelectors";
 
 import { IDesk, ISubTaskArray, ITask, UserListAction } from "../../../type";
-import { Li } from "../Li";
+import { SubDesk } from "../SubDesk";
+import { SetTaskName } from "../SetTaskName";
 
 import './style.scss';
 
@@ -24,7 +25,7 @@ const TaskPage = () => {
         const newList = deskList.map((desk: IDesk) => {
             if (desk.id === params.taskId) {
                 const newDesk = desk.array.map((currentTask) => {
-                    const taskArray = currentTask.taskArray.filter((task: ITask, index) => task.id !== taskIndex);
+                    const taskArray = currentTask.taskArray.filter((task: ITask) => task.id !== taskIndex);
 
                     return {
                         ...currentTask,
@@ -39,7 +40,6 @@ const TaskPage = () => {
             }
 
             return desk;
-
         });
 
         dispatch({ type: UserListAction.REMOVE_TASK, payload: [...newList] });
@@ -49,7 +49,7 @@ const TaskPage = () => {
         const newList = deskList.map((desk: IDesk) => {
             if (desk.id === params.taskId) {
                 const newDesk = desk.array.map((currentDesk) => {
-                    const taskArray = currentDesk.taskArray.map((task, index) => {
+                    const taskArray = currentDesk.taskArray.map((task) => {
                         if (task.id === taskIndex) {
                             return {
                                 ...task,
@@ -120,36 +120,13 @@ const TaskPage = () => {
                             </button>
 
                             :
-                            <div className="task-page__input-name-wrapper">
-                                <button
-                                    className="task-page__button-close"
-                                    onClick={() => { setOpen(!open) }}
-                                >
-                                    <span className="task-page__span"></span>
-                                </button>
-                                <input
-                                    id="subDeskId"
-                                    className="task-page__input"
-                                    type="text"
-                                    placeholder="Название задачи"
-                                    value={subDeskName}
-                                    onChange={(e) => { setsubDeskName(e.target.value) }}
-                                    onKeyDown={(e) => {
-                                        if (e.keyCode === 13 && subDeskName !== '') {
-                                            deskList.map((desk: IDesk) => {
-                                                if (desk.id === params.taskId) {
-                                                    const subDeskId = nanoid();
-                                                    const newSubDeskArray = { name: subDeskName, taskArray: [], id: subDeskId };
-                                                    desk.array = [...desk.array, newSubDeskArray]
-                                                    setsubDeskName('')
-                                                }
-
-                                                return desk;
-                                            })
-                                        }
-                                    }}
-                                />
-                            </div>
+                            <SetTaskName 
+                                setOpen={setOpen}
+                                open={open}
+                                setsubDeskName={setsubDeskName}
+                                subDeskName={subDeskName}
+                                deskList={deskList}
+                            />
                     }
                 </div>
                 <div>
@@ -161,7 +138,7 @@ const TaskPage = () => {
                                     return (
                                         desk.array.map((deskItem: ISubTaskArray) => {
                                             return (
-                                                <Li
+                                                <SubDesk
                                                     key={deskItem.id}
                                                     deskItem={deskItem}
                                                     desk={desk}

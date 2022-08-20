@@ -35,24 +35,37 @@ export interface IDeskAction {
     payload: [],
 }
 
+export interface ITaskListAction {
+    type: UserListAction,
+    payload: [],
+}
+
 export interface ITaskArrayAction {
     type: ITaskArrayType,
     payload: [],
 }
 
-export interface ITaskArray {
-    subDeskArray: any[];
+export interface ITaskCardList {
+    taskCard: any[];
 }
 
-export enum IdAction {
-    ADD_ID  = 'ADD_ID',
-    REMOVE_ID = 'REMOVE_ID',
-    GET_ID = 'GET_ID',
+export interface ITaskCardListAction {
+    type: ITaskCardListType,
+    payload: IDesk[],
+}
+
+export interface ITaskList {
+    taskList: ISubTaskArray[];
 }
 
 export enum ITaskArrayType {
     ADD_TASK_TYPE = 'ADD_TASK_TYPE',
     REMOVE_TASK_TYPE = 'REMOVE_TASK_TYPE',
+}
+
+export enum ITaskCardListType {
+    ADD_DESK = 'ADD_DESK',
+    REMOVE_DESK = 'REMOVE_DESK',
 }
 
 export enum UserListAction {
