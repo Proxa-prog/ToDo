@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import { useTypedSelectors } from '../../../hooks/useTypedSelectors';
 
-import { IDesk, ISubTaskArray, UserListAction } from '../../../type';
+import { IDesk, ISubTaskArray, ITaskCardListType, UserListAction } from '../../../type';
 
 import './style.scss';
 
@@ -12,25 +12,22 @@ const CreateNewDesk = () => {
     const dispatch = useDispatch();
     const [name, setName] = useState('');
     const { deskList } = useTypedSelectors(state => state.desk);
+    const { taskCard } = useTypedSelectors(state => state.taskCardList);
 
-    const updateDeskList = (storage: any) => {
-        if (storage !== null) {
-            const stateFromLocalStorage = JSON.parse(storage);
-            dispatch({ type: UserListAction.ADD_STORE_IN_LOCAL_STORAGE, payload: stateFromLocalStorage });
-        }
-    }
-    
     const createDesk = (desk: IDesk) => {
         dispatch({ type: UserListAction.ADD_TASK, payload: [...deskList, desk] });
+        const deskName = {
+            name: desk.name,
+            id: desk.id
+        }
+        
+        dispatch({ type: ITaskCardListType.ADD_DESK, payload: [...taskCard, deskName] });
     }
-
-    useEffect(() => {
-        updateDeskList(window.localStorage.getItem('addDesk'));
-    }, []);
 
     useEffect(() => {
         window.localStorage.setItem('addDesk', JSON.stringify(deskList));
-    }, [deskList]);
+        window.localStorage.setItem('taskCard', JSON.stringify(taskCard));
+    }, [deskList, taskCard]);
 
     return (
         <div className='main__create-desk'>
