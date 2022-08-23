@@ -93,7 +93,6 @@ const TaskPage = () => {
         window.localStorage.setItem('addDesk', JSON.stringify(deskList));
     }, [deskList]);
 
-
     return (
         <section className="task-page">
             <div className="task-page__inner">

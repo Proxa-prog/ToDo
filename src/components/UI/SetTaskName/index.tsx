@@ -1,7 +1,9 @@
 import { nanoid } from "nanoid";
-import { FC } from "react";
+import { FC, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { IDesk } from "../../../type";
+import { useTypedSelectors } from "../../../hooks/useTypedSelectors";
+import { IDesk, UserListAction } from "../../../type";
 
 interface ISetTaskName {
     setOpen: (open: boolean) => void;
@@ -13,6 +15,7 @@ interface ISetTaskName {
 
 export const SetTaskName: FC<ISetTaskName> = (props) => {
     const params = useParams();
+    const dispatch = useDispatch();
 
     const {
         setOpen,
@@ -21,6 +24,21 @@ export const SetTaskName: FC<ISetTaskName> = (props) => {
         subDeskName,
         deskList,
     } = props;
+
+    const updateDeskList = (storage: any) => {
+        if (storage !== null) {
+            const stateFromLocalStorage = JSON.parse(storage);
+            dispatch({ type: UserListAction.ADD_TASK, payload: stateFromLocalStorage });
+        }
+    }
+
+    useEffect(() => {
+        updateDeskList(window.localStorage.getItem('addDesk'));
+    }, []);
+
+    useEffect(() => {
+        window.localStorage.setItem('addDesk', JSON.stringify(deskList));
+    }, [deskList]);
 
     return (
         <div className="task-page__input-name-wrapper">
@@ -39,7 +57,7 @@ export const SetTaskName: FC<ISetTaskName> = (props) => {
                 onChange={(e) => { setsubDeskName(e.target.value) }}
                 onKeyDown={(e) => {
                     if (e.keyCode === 13 && subDeskName !== '') {
-                        deskList.map((desk: IDesk) => {
+                        const newDeskList = deskList.map((desk: IDesk) => {
                             if (desk.id === params.taskId) {
                                 const subDeskId = nanoid();
                                 const newSubDeskArray = { name: subDeskName, taskArray: [], id: subDeskId };
@@ -49,6 +67,7 @@ export const SetTaskName: FC<ISetTaskName> = (props) => {
 
                             return desk;
                         })
+                        dispatch({ type: UserListAction.ADD_TASK, payload: newDeskList });
                     }
                 }}
             />

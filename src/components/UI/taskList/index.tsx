@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { useTypedSelectors } from '../../../hooks/useTypedSelectors';
-import { IDesk, ITaskCardListType } from '../../../type';
+import { IDesk, ITaskCardListType, UserListAction } from '../../../type';
 
 import './style.scss';
 
@@ -11,10 +11,14 @@ const TaskList = () => {
     const router = useNavigate();
     const dispatch = useDispatch();
     const { taskCard } = useTypedSelectors(state => state.taskCardList);
+    const { deskList } = useTypedSelectors(state => state.desk);
+
 
     const removeDesk = (deskName: string) => {
-        const newDeskList = taskCard.filter((desk) => deskName !== desk.id);
-        dispatch({ type: ITaskCardListType.ADD_DESK, payload: newDeskList });
+        const newtaskCard = taskCard.filter((task) => deskName !== task.id);
+        dispatch({ type: ITaskCardListType.REMOVE_DESK, payload: newtaskCard });
+        const newDeskList = deskList.filter((desk) => deskName !== desk.id);
+        dispatch({ type: UserListAction.REMOVE_TASK, payload: newDeskList });
     }
 
     const updateDeskList = (storage: any) => {
