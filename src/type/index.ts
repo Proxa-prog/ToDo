@@ -47,6 +47,7 @@ export interface ITaskArrayAction {
 
 export interface ITaskCardList {
     taskCard: any[];
+    isProgress: boolean;
 }
 
 export interface ITaskCardListAction {
@@ -66,6 +67,9 @@ export enum ITaskArrayType {
 export enum ITaskCardListType {
     ADD_DESK = 'ADD_DESK',
     REMOVE_DESK = 'REMOVE_DESK',
+    GET_DESK_LIST_REQUEST = 'GET_DESK_LIST_REQUEST',
+    GET_DESK_LIST_SUCCESS = 'GET_DESK_LIST_SUCCESS',
+    GET_DESK_LIST_ERROR = 'GET_DESK_LIST_ERROR',
 }
 
 export enum UserListAction {

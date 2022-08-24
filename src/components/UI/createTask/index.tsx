@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { UserListAction } from '../../../type';
+import { getDeskList } from '../../../thunk/desk';
+
 
 import CreateNewDesk from '../createNewDesk';
 
@@ -10,7 +12,7 @@ const CreateTask = () => {
     const [name, setName] = useState(true);
     const dispatch = useDispatch();
 
-    const updateDeskList = (storage: any) => {
+    const updateTaskList = (storage: any) => {
         if (storage !== null) {
             const stateFromLocalStorage = JSON.parse(storage);
             dispatch({ type: UserListAction.ADD_STORE_IN_LOCAL_STORAGE, payload: stateFromLocalStorage });
@@ -18,7 +20,9 @@ const CreateTask = () => {
     }
 
     useEffect(() => {
-        updateDeskList(window.localStorage.getItem('addDesk'));
+        updateTaskList(window.localStorage.getItem('addDesk'));
+         // @ts-ignore:next-line
+         dispatch(getDeskList());
     }, []);
 
     return (

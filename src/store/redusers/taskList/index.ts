@@ -20,3 +20,6 @@ export const deskListReduser = (state = initialState, action: IDeskAction): IDes
             return state
     }
 }
+
+export const addTaskAction = (payload: any) => ({type: UserListAction.ADD_TASK, payload})
+export const remoeveTaskAction = (payload: any) => ({type: UserListAction.REMOVE_TASK, payload})
