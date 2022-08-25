@@ -1,23 +1,28 @@
 import { nanoid } from 'nanoid';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useTypedSelectors } from '../../hooks/useTypedSelectors';
 import { addColorAction } from '../../store/redusers/Color';
 import { IColor } from '../../type';
 
 import './style.scss';
 
-export const Setting = () => {
+export const Settings = () => {
     const router = useNavigate();
+    const params = useParams();
     const dispatch = useDispatch();
     const [newColor, getNewColor] = useState('#ffffff');
     const [title, getTitle] = useState('');
-    const { colors } = useTypedSelectors(state => state.colors);
-    console.log(colors)
+    const { list } = useTypedSelectors(state => state.colors);
+
+    useEffect(() => {
+        window.localStorage.setItem('colorList', JSON.stringify(list));
+    }, [list])
+
     return (
-        <section className="setting">
-            <div className='setting__button-back-wrapper'>
+        <section className="settings">
+            <div className='settings__button-back-wrapper'>
                 <button
                     className="task-page__button-main"
                     onClick={() => { router(`/`) }}
@@ -27,25 +32,25 @@ export const Setting = () => {
             </div>
 
             <div
-                className='setting__color-description'
+                className='settings__color-description'
             >
                 <input
                     type="text"
                     value={title}
                     onChange={(e) => { getTitle(e.target.value) }}
                 />
-                <ul>
+                <ul className='settings__colors-list'>
                     {
-                        colors.map((item: IColor) => {
+                        list.map((item: IColor) => {
                             const colorId = nanoid();
 
                             return (
                                 <li
                                     key={colorId}
-                                    className='setting__item'
+                                    className='settings__item'
                                 >
                                     <div
-                                        className='setting__selected-color'
+                                        className='settings__selected-color'
                                         style={{ backgroundColor: item.color }}
                                     ></div>
                                     {item.title}
@@ -55,10 +60,8 @@ export const Setting = () => {
                     }
                 </ul>
             </div>
-            <div
-                className='setting__get-color'
-            >
-                <div className='setting__color-selection'>
+            <div className='settings__get-color'>
+                <div className='settings__color-selection'>
                     <input
                         type="color"
                         value={newColor}
@@ -66,8 +69,12 @@ export const Setting = () => {
                     />
                 </div>
                 <button
-                    onClick={() => { 
-                        dispatch(addColorAction({ color: newColor, title: title }))
+                    onClick={() => {
+                        dispatch(addColorAction({
+                            color: newColor,
+                            title: title,
+                            id: params.taskId,
+                        }))
                         getTitle('')
                     }}
                 >Добавить</button>

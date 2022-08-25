@@ -1,4 +1,3 @@
-import { successAction } from "../store/redusers/TaskCardList";
 import { addTaskAction } from "../store/redusers/TaskList";
 
 export const getTaskCard = (payload: any) => async (dispatch: any) => {
@@ -11,7 +10,6 @@ export const getTaskCard = (payload: any) => async (dispatch: any) => {
 
         if (getLocale !== null) {
             const stateFromLocalStorage = JSON.parse(getLocale);
-            console.log(stateFromLocalStorage)
             dispatch(addTaskAction(stateFromLocalStorage));
         }
     } catch(error) {

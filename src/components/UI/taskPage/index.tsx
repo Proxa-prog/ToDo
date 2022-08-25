@@ -12,7 +12,7 @@ import { completeTaskAction, remoeveTaskAction } from "../../../store/redusers/T
 import { getTaskCard } from "../../../thunk/taskCard";
 
 import './style.scss';
-import { Setting } from "../../Setting";
+import { Settings } from "../../Setting";
 
 
 
@@ -101,11 +101,14 @@ const TaskPage = () => {
                     Назад
                 </button>
 
-                <Link to='/setting'>Настройки</Link>
-
                 {deskList.map((desk: IDesk) => {
                     if (desk.id === params.taskId) {
-                        return <h1 className="task-page__title" key={Date.now()}>{desk.name}</h1>
+                        return (
+                            <>
+                                <h1 className="task-page__title" key={Date.now()}>{desk.name}</h1>
+                                <Link to={`/settings${params.taskId}`}>Настройки</Link>
+                            </>
+                        )
                     }
                 })}
 

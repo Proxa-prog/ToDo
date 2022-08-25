@@ -63,10 +63,11 @@ export interface ITaskList {
 export interface IColor {
     color: string;
     title: string;
+    id: string | undefined;
 }
 
 export interface IColorArray {
-    colors: any[];
+    list: any[];
 }
 
 export interface IColorAction {

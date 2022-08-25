@@ -1,13 +1,13 @@
 import { ColorType, IColor, IColorAction, IColorArray } from "../../../type";
 
 const initialState: IColorArray = {
-    colors: [],
+    list: [],
 }
 
 export const colorReduser = (state = initialState, action: IColorAction): IColorArray => {
     switch(action.type) {
         case ColorType.ADD_COLOR:
-            return {...state, colors: [...state.colors, action.payload]}
+            return {...state, list: [...state.list, action.payload]}
         default:
             return state
     }
