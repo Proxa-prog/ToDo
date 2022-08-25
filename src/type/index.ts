@@ -19,6 +19,7 @@ export interface IDesk {
     id: string;
     name: string;
     array: ISubTaskArray[];
+    isProgress: boolean;
 }
 
 export interface IDeskList {
@@ -47,6 +48,7 @@ export interface ITaskArrayAction {
 
 export interface ITaskCardList {
     taskCard: any[];
+    isProgress: boolean;
 }
 
 export interface ITaskCardListAction {
@@ -58,6 +60,21 @@ export interface ITaskList {
     taskList: ISubTaskArray[];
 }
 
+export interface IColor {
+    color: string;
+    title: string;
+    id: string | undefined;
+}
+
+export interface IColorArray {
+    list: any[];
+}
+
+export interface IColorAction {
+    type: ColorType,
+    payload: any,
+}
+
 export enum ITaskArrayType {
     ADD_TASK_TYPE = 'ADD_TASK_TYPE',
     REMOVE_TASK_TYPE = 'REMOVE_TASK_TYPE',
@@ -66,6 +83,9 @@ export enum ITaskArrayType {
 export enum ITaskCardListType {
     ADD_DESK = 'ADD_DESK',
     REMOVE_DESK = 'REMOVE_DESK',
+    GET_DESK_LIST_REQUEST = 'GET_DESK_LIST_REQUEST',
+    GET_DESK_LIST_SUCCESS = 'GET_DESK_LIST_SUCCESS',
+    GET_DESK_LIST_ERROR = 'GET_DESK_LIST_ERROR',
 }
 
 export enum UserListAction {
@@ -79,4 +99,8 @@ export enum UserListAction {
 export enum SubDeskType {
     ADD_SUB_DESK = 'ADD_SUB_DESK',
     REMOVE_SUB_DESK = 'REMOVE_SUB_DESK',
+}
+
+export enum ColorType {
+    ADD_COLOR = 'ADD_COLOR',
 }

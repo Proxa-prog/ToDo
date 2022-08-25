@@ -3,8 +3,10 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { useTypedSelectors } from '../../../hooks/useTypedSelectors';
+import { addDeskAction } from '../../../store/redusers/TaskCardList';
+import { addTaskAction } from '../../../store/redusers/TaskList';
 
-import { IDesk, ISubTaskArray, ITaskCardListType, UserListAction } from '../../../type';
+import { IDesk, ISubTaskArray } from '../../../type';
 
 import './style.scss';
 
@@ -15,18 +17,20 @@ const CreateNewDesk = () => {
     const { taskCard } = useTypedSelectors(state => state.taskCardList);
 
     const createDesk = (desk: IDesk) => {
-        dispatch({ type: UserListAction.ADD_TASK, payload: [...deskList, desk] });
+        dispatch(addTaskAction([...deskList, desk]));
         const deskName = {
             name: desk.name,
-            id: desk.id
+            id: desk.id,
+            isProgress: false,
         }
         
-        dispatch({ type: ITaskCardListType.ADD_DESK, payload: [...taskCard, deskName] });
+        dispatch(addDeskAction([...taskCard, deskName]));
     }
 
     useEffect(() => {
         window.localStorage.setItem('addDesk', JSON.stringify(deskList));
         window.localStorage.setItem('taskCard', JSON.stringify(taskCard));
+
     }, [deskList, taskCard]);
 
     return (
@@ -45,7 +49,12 @@ const CreateNewDesk = () => {
                 onClick={() => {
                     const deskId = nanoid();
                     const array: ISubTaskArray[] = [];
-                    createDesk({ name, id: deskId, array });
+                    createDesk({ 
+                        name, 
+                        id: deskId, 
+                        array, 
+                        isProgress: false,
+                    });
                 }}
             >
                 Добавить

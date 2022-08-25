@@ -5,6 +5,7 @@ import Error from '../error';
 import TaskPage from '../UI/taskPage';
 
 import './style.scss';
+import { Settings } from '../Setting';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Main />}/>
+          <Route path='/settings:taskId' element={<Settings />}/>
           <Route path='/:taskId' element={<TaskPage />}/>
           <Route path='*' element={<Error />}/>
         </Routes>
