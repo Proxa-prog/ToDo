@@ -2,7 +2,6 @@ import { nanoid } from "nanoid";
 import { FC, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { useTypedSelectors } from "../../../hooks/useTypedSelectors";
 import { IDesk, UserListAction } from "../../../type";
 
 interface ISetTaskName {

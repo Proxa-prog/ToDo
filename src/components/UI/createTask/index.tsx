@@ -7,20 +7,15 @@ import { getDeskList } from '../../../thunk/desk';
 import CreateNewDesk from '../createNewDesk';
 
 import './style.scss';
+import { getTaskCard } from '../../../thunk/taskCard';
 
 const CreateTask = () => {
     const [name, setName] = useState(true);
     const dispatch = useDispatch();
 
-    const updateTaskList = (storage: any) => {
-        if (storage !== null) {
-            const stateFromLocalStorage = JSON.parse(storage);
-            dispatch({ type: UserListAction.ADD_STORE_IN_LOCAL_STORAGE, payload: stateFromLocalStorage });
-        }
-    }
-
     useEffect(() => {
-        updateTaskList(window.localStorage.getItem('addDesk'));
+        // @ts-ignore:next-line
+         dispatch(getTaskCard());
          // @ts-ignore:next-line
          dispatch(getDeskList());
     }, []);

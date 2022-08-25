@@ -2,15 +2,25 @@ import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import { useTypedSelectors } from "../../../hooks/useTypedSelectors";
+import { remoeveTaskAction } from "../../../store/redusers/TaskList";
 
 import { IDesk, ITask, UserListAction } from "../../../type";
 import { Input } from "../input";
 import { Task } from "../task";
 
-export const SubDesk = ({ deskItem, desk, nameArray, setNameArray, deleteTask, confirmTask }: any) => {
+export const SubDesk = (props: any) => {
     const params = useParams();
     const dispatch = useDispatch();
     const { deskList } = useTypedSelectors(state => state.desk);
+
+    const {
+        deskItem,
+        desk,
+        nameArray,
+        setNameArray,
+        deleteTask,
+        confirmTask
+    } = props;
 
     const deleteSubDesk = (array: IDesk[], currentItem: string) => {
         array.map((desk: IDesk) => {
@@ -18,14 +28,16 @@ export const SubDesk = ({ deskItem, desk, nameArray, setNameArray, deleteTask, c
                 const newArray = desk.array.filter((currentDesk) => currentDesk.id !== currentItem);
                 desk.array = [...newArray];
             }
+
             return desk;
         })
+
         return array;
     }
 
     const dispatchDeleteSubDesk = (desk: IDesk[], currentItem: string) => {
         const newDeskArray = deleteSubDesk(desk, currentItem);
-        dispatch({ type: UserListAction.REMOVE_SUB_DESK, payload: [...newDeskArray] });
+        dispatch(remoeveTaskAction([...newDeskArray]));
     }
 
     return (

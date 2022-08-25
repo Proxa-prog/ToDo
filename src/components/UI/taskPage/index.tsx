@@ -1,15 +1,19 @@
-import { nanoid } from "nanoid";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import { useTypedSelectors } from "../../../hooks/useTypedSelectors";
 
-import { IDesk, ISubTaskArray, ITask, UserListAction } from "../../../type";
+import { IDesk, ISubTaskArray, ITask } from "../../../type";
 import { SubDesk } from "../SubDesk";
 import { SetTaskName } from "../SetTaskName";
 
+import { completeTaskAction, remoeveTaskAction } from "../../../store/redusers/TaskList";
+import { getTaskCard } from "../../../thunk/taskCard";
+
 import './style.scss';
+import { Setting } from "../../Setting";
+
 
 
 const TaskPage = () => {
@@ -42,7 +46,7 @@ const TaskPage = () => {
             return desk;
         });
 
-        dispatch({ type: UserListAction.REMOVE_TASK, payload: [...newList] });
+        dispatch(remoeveTaskAction([...newList]));
     };
 
     const confirmTask = (taskIndex: string) => {
@@ -75,18 +79,12 @@ const TaskPage = () => {
             return desk;
         });
 
-        dispatch({ type: UserListAction.COMPLETE, payload: [...newList] });
+        dispatch(completeTaskAction([...newList]));
     };
     
-    const updateDeskList = (storage: any) => {
-        if (storage !== null) {
-            const stateFromLocalStorage = JSON.parse(storage);
-            dispatch({ type: UserListAction.ADD_STORE_IN_LOCAL_STORAGE, payload: stateFromLocalStorage });
-        }
-    }
-
     useEffect(() => {
-        updateDeskList(window.localStorage.getItem('addDesk'));
+        // @ts-ignore:next-line
+        dispatch(getTaskCard());
     }, []);
 
     useEffect(() => {
@@ -102,6 +100,8 @@ const TaskPage = () => {
                 >
                     Назад
                 </button>
+
+                <Link to='/setting'>Настройки</Link>
 
                 {deskList.map((desk: IDesk) => {
                     if (desk.id === params.taskId) {
@@ -133,22 +133,21 @@ const TaskPage = () => {
                         {
                             deskList.map((desk: IDesk) => {
                                 if (desk.id === params.taskId) {
-
-                                    return (
-                                        desk.array.map((deskItem: ISubTaskArray) => {
-                                            return (
-                                                <SubDesk
-                                                    key={deskItem.id}
-                                                    deskItem={deskItem}
-                                                    desk={desk}
-                                                    nameArray={nameArray}
-                                                    setNameArray={setNameArray}
-                                                    confirmTask={confirmTask}
-                                                    deleteTask={deleteTask}
-                                                />
-                                            )
-                                        })
-                                    )
+                                        return (
+                                            desk.array.map((deskItem: ISubTaskArray) => {
+                                                return (
+                                                    <SubDesk
+                                                        key={deskItem.id}
+                                                        deskItem={deskItem}
+                                                        desk={desk}
+                                                        nameArray={nameArray}
+                                                        setNameArray={setNameArray}
+                                                        confirmTask={confirmTask}
+                                                        deleteTask={deleteTask}
+                                                    />
+                                                )
+                                            })
+                                        )
                                 }
                             })
                         }

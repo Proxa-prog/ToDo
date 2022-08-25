@@ -1,4 +1,4 @@
-import { addDeskAction } from "../store/redusers/TaskCardList";
+import { addDeskAction, successAction } from "../store/redusers/TaskCardList";
 
 export const getDeskList = (payload: any) => async (dispatch: any) => {
         try {
@@ -10,6 +10,7 @@ export const getDeskList = (payload: any) => async (dispatch: any) => {
 
             if (newLocale !== null) {
                 const stateFromLocalStorage = JSON.parse(newLocale);
+                dispatch(successAction());
                 dispatch(addDeskAction(stateFromLocalStorage));
             }
         } catch(error) {

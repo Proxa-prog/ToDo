@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { useTypedSelectors } from '../../../hooks/useTypedSelectors';
-import { addDeskAction, removeDeskAction } from '../../../store/redusers/TaskCardList';
+import { removeDeskAction } from '../../../store/redusers/TaskCardList';
 import { remoeveTaskAction } from '../../../store/redusers/TaskList';
 import { getDeskList } from '../../../thunk/desk';
 import { IDesk } from '../../../type';
@@ -13,7 +13,7 @@ import './style.scss';
 const TaskList = () => {
     const router = useNavigate();
     const dispatch = useDispatch();
-    const { taskCard } = useTypedSelectors(state => state.taskCardList);
+    const { taskCard, isProgress } = useTypedSelectors(state => state.taskCardList);
     const { deskList } = useTypedSelectors(state => state.desk);
 
     const removeDesk = (deskName: string) => {
@@ -36,7 +36,8 @@ const TaskList = () => {
         <section className="main__task-list-wrapper">
             <ul className="main__task-list">
                 {   
-                    taskCard.length !== 0 ?
+                    isProgress 
+                    ?
                     taskCard.map((desk: IDesk) => {
                         return (
                             <li className='main__task-item' key={desk.id}>
@@ -58,7 +59,7 @@ const TaskList = () => {
                     }
                     )
                     :
-                    'Данные не готовы'
+                    'Данные загружаются'
                 }
             </ul>
         </section>

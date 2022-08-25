@@ -14,7 +14,7 @@ export const TaskCardListReduser = (state = initialState, action: ITaskCardListA
         case ITaskCardListType.GET_DESK_LIST_REQUEST:
             return {...state, isProgress: true}
         case ITaskCardListType.GET_DESK_LIST_SUCCESS:
-            return {...state, isProgress: false}
+            return {...state, isProgress: true}
         case ITaskCardListType.GET_DESK_LIST_ERROR:
             return {...state, isProgress: false}
         default:
@@ -24,3 +24,4 @@ export const TaskCardListReduser = (state = initialState, action: ITaskCardListA
 
 export const addDeskAction = (payload: any) => ({type: ITaskCardListType.ADD_DESK, payload})
 export const removeDeskAction = (payload: any) => ({type: ITaskCardListType.REMOVE_DESK, payload})
+export const successAction = () => ({type: ITaskCardListType.GET_DESK_LIST_SUCCESS})
