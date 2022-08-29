@@ -7,6 +7,7 @@ import { addDeskAction } from '../../../store/redusers/TaskCardList';
 import { addTaskAction } from '../../../store/redusers/TaskList';
 
 import { IDesk, ISubTaskArray } from '../../../type';
+import { ColorListItem } from '../ColorListItem';
 
 import './style.scss';
 
@@ -15,6 +16,8 @@ const CreateNewDesk = () => {
     const [name, setName] = useState('');
     const { deskList } = useTypedSelectors(state => state.desk);
     const { taskCard } = useTypedSelectors(state => state.taskCardList);
+    const { list } = useTypedSelectors(state => state.colors);
+
 
     const createDesk = (desk: IDesk) => {
         dispatch(addTaskAction([...deskList, desk]));
@@ -23,7 +26,7 @@ const CreateNewDesk = () => {
             id: desk.id,
             isProgress: false,
         }
-        
+
         dispatch(addDeskAction([...taskCard, deskName]));
     }
 
@@ -49,10 +52,10 @@ const CreateNewDesk = () => {
                 onClick={() => {
                     const deskId = nanoid();
                     const array: ISubTaskArray[] = [];
-                    createDesk({ 
-                        name, 
-                        id: deskId, 
-                        array, 
+                    createDesk({
+                        name,
+                        id: deskId,
+                        array,
                         isProgress: false,
                     });
                 }}
@@ -66,6 +69,14 @@ const CreateNewDesk = () => {
             >
                 Отмена
             </button>
+            <div className='main__color-selection-wrapper'>
+                <p className='main__color-selection-text'>Выбирите цвет подсказки</p>
+                <ul className='main__color-list'>
+                    {list.map((item) => (
+                        <ColorListItem item={item}/>
+                    ))}
+                </ul>
+            </div>
         </div>
     );
 }

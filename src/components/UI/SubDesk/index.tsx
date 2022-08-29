@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { useTypedSelectors } from "../../../hooks/useTypedSelectors";
 import { remoeveTaskAction } from "../../../store/redusers/TaskList";
 
-import { IDesk, ITask, UserListAction } from "../../../type";
+import { IDesk, ITask } from "../../../type";
 import { Input } from "../input";
 import { Task } from "../task";
 

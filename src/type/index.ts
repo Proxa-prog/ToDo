@@ -63,16 +63,16 @@ export interface ITaskList {
 export interface IColor {
     color: string;
     title: string;
-    id: string | undefined;
+    id: string;
 }
 
 export interface IColorArray {
-    list: any[];
+    list: IColor[];
 }
 
 export interface IColorAction {
-    type: ColorType,
-    payload: any,
+    type: ColorTypeAction,
+    payload: IColor[],
 }
 
 export enum ITaskArrayType {
@@ -101,6 +101,7 @@ export enum SubDeskType {
     REMOVE_SUB_DESK = 'REMOVE_SUB_DESK',
 }
 
-export enum ColorType {
+export enum ColorTypeAction {
     ADD_COLOR = 'ADD_COLOR',
+    UPDATE_COLOR = 'UPDATE_COLOR',
 }
