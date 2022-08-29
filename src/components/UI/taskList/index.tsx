@@ -39,6 +39,7 @@ const TaskList = () => {
                     isProgress 
                     ?
                     taskCard.map((desk: IDesk) => {
+
                         return (
                             <li className='main__task-item' key={desk.id}>
                                 <button
@@ -47,6 +48,16 @@ const TaskList = () => {
                                 >
                                     {desk.name}
                                 </button>
+                                <ul className='main__color-current-list'>
+                                    {desk.colorArray.map((color) => (
+                                        <li 
+                                            className='main__color-title'
+                                            key={color.id}
+                                            style={{backgroundColor: color.color}}
+                                            title={color.title}
+                                        ></li>
+                                    ))}
+                                </ul>
                                 <button
                                     name={String(desk.id)}
                                     onClick={(e) => {

@@ -18,13 +18,17 @@ const CreateNewDesk = () => {
     const { taskCard } = useTypedSelectors(state => state.taskCardList);
     const { list } = useTypedSelectors(state => state.colors);
 
-
+    
     const createDesk = (desk: IDesk) => {
         dispatch(addTaskAction([...deskList, desk]));
+
+        const newColorArray = list.filter((color) => color.isActive === true);
+
         const deskName = {
             name: desk.name,
             id: desk.id,
             isProgress: false,
+            colorArray: newColorArray,
         }
 
         dispatch(addDeskAction([...taskCard, deskName]));
@@ -57,6 +61,7 @@ const CreateNewDesk = () => {
                         id: deskId,
                         array,
                         isProgress: false,
+                        colorArray: list,
                     });
                 }}
             >
@@ -70,10 +75,18 @@ const CreateNewDesk = () => {
                 Отмена
             </button>
             <div className='main__color-selection-wrapper'>
-                <p className='main__color-selection-text'>Выбирите цвет подсказки</p>
+                {list.length !== 0
+                    ?
+                    <p className='main__color-selection-text'>Наведите, чтобы прочитать</p>
+                    :
+                    <p className='main__color-selection-text'>Выберите цвет в настройках</p>
+                }
                 <ul className='main__color-list'>
                     {list.map((item) => (
-                        <ColorListItem item={item}/>
+                        <ColorListItem 
+                            item={item}
+                            key={item.id}
+                        />
                     ))}
                 </ul>
             </div>

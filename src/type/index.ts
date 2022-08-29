@@ -20,6 +20,7 @@ export interface IDesk {
     name: string;
     array: ISubTaskArray[];
     isProgress: boolean;
+    colorArray: IColor[];
 }
 
 export interface IDeskList {
@@ -64,6 +65,7 @@ export interface IColor {
     color: string;
     title: string;
     id: string;
+    isActive: boolean;
 }
 
 export interface IColorArray {
