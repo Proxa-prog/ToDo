@@ -1,12 +1,19 @@
+import { addColorAction } from "../store/redusers/Color";
 import { addDeskAction, successAction } from "../store/redusers/TaskCardList";
 
 export const getDeskList = (payload: any) => async (dispatch: any) => {
         try {
             const newLocale = window.localStorage.getItem('taskCard');
+            const getLocaleColorsList = window.localStorage.getItem('colorList');
 
             await new Promise((resolve, reject) => {
               setTimeout(resolve, 2000);
             });
+
+            if (getLocaleColorsList !== null) {
+                const colorsList = JSON.parse(getLocaleColorsList);
+                dispatch(addColorAction(colorsList));
+            }
 
             if (newLocale !== null) {
                 const stateFromLocalStorage = JSON.parse(newLocale);

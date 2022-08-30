@@ -41,22 +41,26 @@ export const Settings = () => {
                 />
                 <ul className='settings__colors-list'>
                     {
-                        list.map((item: IColor) => {
-                            const colorId = nanoid();
+                        list.length !== 0
+                            ?
+                            list.map((item: IColor) => {
+                                const colorKey = nanoid();
 
-                            return (
-                                <li
-                                    key={colorId}
-                                    className='settings__item'
-                                >
-                                    <div
-                                        className='settings__selected-color'
-                                        style={{ backgroundColor: item.color }}
-                                    ></div>
-                                    {item.title}
-                                </li>
-                            )
-                        })
+                                return (
+                                    <li
+                                        key={colorKey}
+                                        className='settings__item'
+                                    >
+                                        <div
+                                            className='settings__selected-color'
+                                            style={{ backgroundColor: item.color }}
+                                        ></div>
+                                        {item.title}
+                                    </li>
+                                )
+                            })
+                            :
+                            'Цвета не выбраны'
                     }
                 </ul>
             </div>
@@ -70,11 +74,15 @@ export const Settings = () => {
                 </div>
                 <button
                     onClick={() => {
-                        dispatch(addColorAction({
+                        const colorId = nanoid();
+                        const setNewColor = {
                             color: newColor,
                             title: title,
-                            id: params.taskId,
-                        }))
+                            id: colorId,
+                            isActive: false,
+                        };
+                        const newArray = [...list, setNewColor];
+                        dispatch(addColorAction(newArray));
                         getTitle('')
                     }}
                 >Добавить</button>

@@ -16,6 +16,7 @@
     cursor: pointer;
     text-align: center;
     display: flex;
+    align-items: center;
 
     &:hover {
         background-color: rgba(0,212,255,1);
@@ -30,4 +31,17 @@
     border: none;
     width: 100%;
     height: 100%;
+}
+
+.main__color-title {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.main__color-current-list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 70px;
 }

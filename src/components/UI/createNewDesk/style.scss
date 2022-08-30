@@ -25,3 +25,25 @@
     color: rgba(9,9,121,1);
     background-color: tomato;
 }
+
+.main__color-selection-wrapper {
+    text-align: center;
+    padding: 10px 0;
+
+    .main__color-selection-text {
+        margin-bottom: 10px;
+    }
+}
+
+.main__color-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+.main__color-item {
+    width: 15px;
+    height: 15px;
+    margin: 0 15px 5px 0;
+
+}
