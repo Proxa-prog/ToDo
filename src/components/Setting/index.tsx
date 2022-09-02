@@ -1,10 +1,13 @@
 import { nanoid } from 'nanoid';
+
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
+
 import { useTypedSelectors } from '../../hooks/useTypedSelectors';
 import { addColorAction } from '../../store/redusers/Color';
 import { IColor } from '../../type';
+import { Button } from '../UI/Button';
 
 import './style.scss';
 
@@ -23,12 +26,12 @@ export const Settings = () => {
     return (
         <section className="settings">
             <div className='settings__button-back-wrapper'>
-                <button
+                <Button
                     className="task-page__button-main"
                     onClick={() => { router(`/`) }}
                 >
                     Главная
-                </button>
+                </Button>
             </div>
 
             <div
@@ -72,7 +75,8 @@ export const Settings = () => {
                         onChange={(e) => { getNewColor(e.target.value) }}
                     />
                 </div>
-                <button
+                <Button
+                    className=''
                     onClick={() => {
                         const colorId = nanoid();
                         const setNewColor = {
@@ -85,7 +89,8 @@ export const Settings = () => {
                         dispatch(addColorAction(newArray));
                         getTitle('')
                     }}
-                >Добавить</button>
+                >Добавить
+                </Button>
             </div>
         </section>
     )

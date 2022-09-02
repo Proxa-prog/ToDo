@@ -1,12 +1,13 @@
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { useTypedSelectors } from "../../../hooks/useTypedSelectors";
-import { remoeveTaskAction } from "../../../store/redusers/TaskList";
+import { useTypedSelectors } from "../../hooks/useTypedSelectors";
+import { remoeveTaskAction } from "../../store/redusers/TaskList";
 
-import { IDesk, ITask } from "../../../type";
-import { Input } from "../input";
+import { IDesk, ITask } from "../../type";
+import { Input } from "../UI/input";
 import { Task } from "../task";
+import { Button } from "../UI/Button";
 
 export const SubDesk = (props: any) => {
     const params = useParams();
@@ -43,14 +44,15 @@ export const SubDesk = (props: any) => {
     return (
         <li className="task-page__task-name-item" key={desk.id}>
             <>
-                <button
+                <Button
+                    className=""
                     name={deskItem.id}
                     onClick={(e) => {
                         dispatchDeleteSubDesk(deskList, e.currentTarget.name);
                     }}
                 >
                     Удалить
-                </button>
+                </Button>
 
                 <h2>{deskItem.name}</h2>
 

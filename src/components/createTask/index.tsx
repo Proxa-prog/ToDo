@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { UserListAction } from '../../../type';
-import { getDeskList } from '../../../thunk/desk';
-
+import { getDeskList } from '../../thunk/desk';
 
 import CreateNewDesk from '../createNewDesk';
 
 import './style.scss';
-import { getTaskCard } from '../../../thunk/taskCard';
+import { getTaskCard } from '../../thunk/taskCard';
+import { Button } from '../UI/Button';
 
 const CreateTask = () => {
     const [name, setName] = useState(true);
@@ -15,19 +14,21 @@ const CreateTask = () => {
 
     useEffect(() => {
         // @ts-ignore:next-line
-         dispatch(getTaskCard());
-         // @ts-ignore:next-line
-         dispatch(getDeskList());
+        dispatch(getTaskCard());
+        // @ts-ignore:next-line
+        dispatch(getDeskList());
     }, []);
 
     return (
         <div className='main__create-task'>
-            <button
+            <Button
                 className='main__new-desk'
-                onClick={() => { setName(!name) }}
+                onClick={
+                    () => { setName(!name) }
+                }
             >
                 {name ? 'Новая доска' : 'Свернуть'}
-            </button>
+            </Button>
             {name ? null : <CreateNewDesk />}
         </div>
     );

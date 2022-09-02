@@ -2,18 +2,19 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
-import { useTypedSelectors } from "../../../hooks/useTypedSelectors";
+import { useTypedSelectors } from "../../hooks/useTypedSelectors";
 
-import { IDesk, ISubTaskArray, ITask } from "../../../type";
+import { IDesk, ISubTaskArray, ITask } from "../../type";
 import { SubDesk } from "../SubDesk";
 import { SetTaskName } from "../SetTaskName";
 
-import { completeTaskAction, remoeveTaskAction } from "../../../store/redusers/TaskList";
-import { getTaskCard } from "../../../thunk/taskCard";
+import { completeTaskAction, remoeveTaskAction } from "../../store/redusers/TaskList";
+import { getTaskCard } from "../../thunk/taskCard";
 
 import './style.scss';
-import { Settings } from "../../Setting";
-import { addColorAction } from "../../../store/redusers/Color";
+import { Settings } from "../Setting";
+import { addColorAction } from "../../store/redusers/Color";
+import { Button } from "../UI/Button";
 
 
 
@@ -95,12 +96,14 @@ const TaskPage = () => {
     return (
         <section className="task-page">
             <div className="task-page__inner">
-                <button
+                <Button
                     className="task-page__button-back"
-                    onClick={() => { router(`/`) }}
+                    onClick={() => {
+                        router(`/`)
+                    }}
                 >
                     Назад
-                </button>
+                </Button>
 
                 {deskList.map((desk: IDesk) => {
                     if (desk.id === params.taskId) {
@@ -117,10 +120,12 @@ const TaskPage = () => {
                     {
                         open
                             ?
-                            <button className="task-page__button"
-                                onClick={() => { setOpen(!open) }}
+                            <Button className="task-page__button"
+                                onClick={() => {
+                                    setOpen(!open)
+                                }}
                             >Добавить список
-                            </button>
+                            </Button>
 
                             :
                             <SetTaskName 
