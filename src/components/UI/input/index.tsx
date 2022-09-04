@@ -1,27 +1,34 @@
-import { nanoid } from "nanoid";
-import { useState } from "react";
+import { ChangeEvent, FC, KeyboardEventHandler } from "react";
 
-export const Input = (props: any) => {
-    const [taskName, setTaskName] = useState('');
-    const taskId = nanoid();
+export type onChangeParams = {
+    name?: string;
+    value: string;
+}
+
+interface IInput {
+    name?: string;
+    value: string;
+    onKeyDown?: (event: React.KeyboardEvent<HTMLElement>) => void;
+    onChange: (event: React.ChangeEvent<HTMLInputElement>, {name, value}: onChangeParams) => void;
+}
+
+export const Input: FC<IInput> = (props) => {
+    const {
+        name,
+        value,
+        onKeyDown,
+    } = props;
+
+    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        props.onChange(event, {name, value: event.target.value});
+    };
 
     return (
         <input
             type="text"
-            value={taskName}
-            onChange={(e) => {
-                setTaskName(e.target.value);
-                props.setNameArray(e.target.value);
-            }}
-            onKeyDown={(e) => {
-                if (e.keyCode === 13 && taskName !== '') {
-                    const name = props.nameArray;
-                    props.setNameArray(props.taskName);
-                    props.deskItem.taskArray = [...props.deskItem.taskArray, { name: name, status: true, id: taskId, idConfirmed: true }];
-                    props.setNameArray('');
-                    setTaskName('');
-                }
-            }}
+            value={value}
+            onChange={onChange}
+            onKeyDown={onKeyDown}
         />
     )
-}
+};

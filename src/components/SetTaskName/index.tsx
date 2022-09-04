@@ -2,7 +2,8 @@ import { nanoid } from "nanoid";
 import { FC, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { IDesk, UserListAction } from "../../../type";
+import { IDesk, UserListAction } from "../../type";
+import { Button } from "../UI/Button";
 
 interface ISetTaskName {
     setOpen: (open: boolean) => void;
@@ -41,12 +42,14 @@ export const SetTaskName: FC<ISetTaskName> = (props) => {
 
     return (
         <div className="task-page__input-name-wrapper">
-            <button
+            <Button
                 className="task-page__button-close"
-                onClick={() => { setOpen(!open) }}
+                onClick={() => {
+                    setOpen(!open)
+                }}
             >
                 <span className="task-page__span"></span>
-            </button>
+            </Button>
             <input
                 id="subDeskId"
                 className="task-page__input"

@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { Button } from "../UI/Button";
 
 interface ITaskIn {
     item: any;
@@ -27,19 +28,19 @@ export const Task: FC<ITaskIn> = (props) => {
         <div className={item.isConfirmed ? 'task-page__task-complete' : 'task-page__task'}>
             {item.name}
             <div className="task-page__button-wrapper">
-                <button
+                <Button
                     className={item.isConfirmed ? 'task-page__button-unComplete' : 'task-page__button-complete'}
                     name={item.name}
                     onClick={() => {
                         onClickConfirmTask(index);
                     }}
-                ></button>
-                <button
+                ></Button>
+                <Button
                     className="task-page__button-delete"
                     onClick={() => {
                         onClickDeleteTask(index)
                     }}
-                ></button>
+                ></Button>
             </div>
         </div>
     )

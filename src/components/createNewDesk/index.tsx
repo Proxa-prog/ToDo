@@ -2,12 +2,13 @@ import { nanoid } from 'nanoid';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { useTypedSelectors } from '../../../hooks/useTypedSelectors';
-import { addDeskAction } from '../../../store/redusers/TaskCardList';
-import { addTaskAction } from '../../../store/redusers/TaskList';
+import { useTypedSelectors } from '../../hooks/useTypedSelectors';
+import { addDeskAction } from '../../store/redusers/TaskCardList';
+import { addTaskAction } from '../../store/redusers/TaskList';
 
-import { IDesk, ISubTaskArray } from '../../../type';
+import { IDesk, ISubTaskArray } from '../../type';
 import { ColorListItem } from '../ColorListItem';
+import { Button } from '../UI/Button';
 
 import './style.scss';
 
@@ -40,6 +41,18 @@ const CreateNewDesk = () => {
 
     }, [deskList, taskCard]);
 
+    const addNewDesk = () => {
+        const deskId = nanoid();
+        const array: ISubTaskArray[] = [];
+        createDesk({
+            name,
+            id: deskId,
+            array,
+            isProgress: false,
+            colorArray: list,
+        });
+    }
+
     return (
         <div className='main__create-desk'>
             <label htmlFor="desk-name">Название доски</label>
@@ -50,30 +63,18 @@ const CreateNewDesk = () => {
                 value={name}
                 onChange={(e) => { setName(e.target.value) }}
             />
-
-            <button
+            <Button
                 className='main__add-desk'
-                onClick={() => {
-                    const deskId = nanoid();
-                    const array: ISubTaskArray[] = [];
-                    createDesk({
-                        name,
-                        id: deskId,
-                        array,
-                        isProgress: false,
-                        colorArray: list,
-                    });
-                }}
+                onClick={addNewDesk}
             >
                 Добавить
-            </button>
-
-            <button
+            </Button>
+            <Button
                 className='main__cansel'
                 onClick={() => { setName('') }}
             >
                 Отмена
-            </button>
+            </Button>
             <div className='main__color-selection-wrapper'>
                 {list.length !== 0
                     ?

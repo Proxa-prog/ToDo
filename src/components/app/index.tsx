@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import Main from '../main';
 import Error from '../error';
-import TaskPage from '../UI/taskPage';
+import TaskPage from '../taskPage';
 
 import './style.scss';
 import { Settings } from '../Setting';

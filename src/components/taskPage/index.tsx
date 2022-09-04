@@ -2,18 +2,19 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
-import { useTypedSelectors } from "../../../hooks/useTypedSelectors";
+import { useTypedSelectors } from "../../hooks/useTypedSelectors";
 
-import { IDesk, ISubTaskArray, ITask } from "../../../type";
+import { IDesk, ISubTaskArray, ITask } from "../../type";
 import { SubDesk } from "../SubDesk";
 import { SetTaskName } from "../SetTaskName";
 
-import { completeTaskAction, remoeveTaskAction } from "../../../store/redusers/TaskList";
-import { getTaskCard } from "../../../thunk/taskCard";
+import { addTaskAction, completeTaskAction, remoeveTaskAction } from "../../store/redusers/TaskList";
+import { getTaskCard } from "../../thunk/taskCard";
+
+import { Button } from "../UI/Button";
+import { nanoid } from "nanoid";
 
 import './style.scss';
-import { Settings } from "../../Setting";
-import { addColorAction } from "../../../store/redusers/Color";
 
 
 
@@ -23,7 +24,6 @@ const TaskPage = () => {
     const params = useParams();
     const [open, setOpen] = useState(true);
     const [subDeskName, setsubDeskName] = useState('');
-    const [nameArray, setNameArray] = useState('');
     const { deskList } = useTypedSelectors(state => state.desk);
 
     const deleteTask = (taskIndex: string) => {
@@ -92,15 +92,57 @@ const TaskPage = () => {
         window.localStorage.setItem('addDesk', JSON.stringify(deskList));
     }, [deskList]);
 
+    const onAddSubDesk = (deskItem: ISubTaskArray, taskName: string) => {
+        console.log(deskItem)
+        const taskId = nanoid();
+        const newDeskList = deskList.map((desk: IDesk) => {
+            if (desk.id === params.taskId) {
+                desk.array.map((currentDeskItem) => {
+                    if (currentDeskItem.id === deskItem.id) {
+                        deskItem.taskArray = [
+                            ...deskItem.taskArray,
+                            {
+                                name: taskName,
+                                status: true,
+                                id: taskId,
+                                isConfirmed: false
+                            }
+                        ];
+                    }
+
+                });
+            }
+
+            return desk;
+        });
+        
+        dispatch(addTaskAction([...newDeskList]));
+    };
+
+    const deleteSubDesk = (currentItem: string) => {
+        const newDeskArray = deskList.map((desk: IDesk) => {
+            if (desk.id === params.taskId) {
+                const newArray = desk.array.filter((currentDesk) => currentDesk.id !== currentItem);
+                desk.array = [...newArray];
+            }
+
+            return desk;
+        });
+
+        dispatch(remoeveTaskAction([...newDeskArray]));
+    };
+
     return (
         <section className="task-page">
             <div className="task-page__inner">
-                <button
+                <Button
                     className="task-page__button-back"
-                    onClick={() => { router(`/`) }}
+                    onClick={() => {
+                        router(`/`)
+                    }}
                 >
                     Назад
-                </button>
+                </Button>
 
                 {deskList.map((desk: IDesk) => {
                     if (desk.id === params.taskId) {
@@ -117,10 +159,12 @@ const TaskPage = () => {
                     {
                         open
                             ?
-                            <button className="task-page__button"
-                                onClick={() => { setOpen(!open) }}
+                            <Button className="task-page__button"
+                                onClick={() => {
+                                    setOpen(!open)
+                                }}
                             >Добавить список
-                            </button>
+                            </Button>
 
                             :
                             <SetTaskName 
@@ -142,12 +186,13 @@ const TaskPage = () => {
                                                 return (
                                                     <SubDesk
                                                         key={deskItem.id}
-                                                        deskItem={deskItem}
                                                         desk={desk}
-                                                        nameArray={nameArray}
-                                                        setNameArray={setNameArray}
                                                         confirmTask={confirmTask}
                                                         deleteTask={deleteTask}
+                                                        onAddSubDesk={(taskName: string) => {onAddSubDesk(deskItem, taskName)}}
+                                                        name={deskItem.name}
+                                                        taskArray={deskItem.taskArray}
+                                                        deleteSubDesk={() => {deleteSubDesk(deskItem.id)}}
                                                     />
                                                 )
                                             })
