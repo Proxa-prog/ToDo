@@ -28,7 +28,9 @@ export const Settings = () => {
             <div className='settings__button-back-wrapper'>
                 <Button
                     className="task-page__button-main"
-                    onClick={() => { router(`/`) }}
+                    onClick={() => {
+                        router(`/`)
+                    }}
                 >
                     Главная
                 </Button>

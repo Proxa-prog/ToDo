@@ -8,14 +8,20 @@ interface ButtonProps {
 }
 
 export const Button: FC<ButtonProps> = (props) => {
+    const {
+        className,
+        name,
+        children,
+        onClick,
+    } = props;
 
     return (
         <button
-            className={props.className}
-            onClick={props.onClick}
-            name={props.name}
+            className={className}
+            onClick={onClick}
+            name={name}
         >
-            {props.children}
+            {children}
         </button>
     )
 }

@@ -1,68 +1,65 @@
-import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
-
-import { useTypedSelectors } from "../../hooks/useTypedSelectors";
-import { remoeveTaskAction } from "../../store/redusers/TaskList";
-
 import { IDesk, ITask } from "../../type";
-import { Input } from "../UI/input";
 import { Task } from "../task";
 import { Button } from "../UI/Button";
+import { Input, onChangeParams } from "../UI/Input";
+import { FC, useState } from "react";
 
-export const SubDesk = (props: any) => {
-    const params = useParams();
-    const dispatch = useDispatch();
-    const { deskList } = useTypedSelectors(state => state.desk);
+interface ISubDesk {
+    desk: IDesk;
+    deleteTask: (taskIndex: string) => void;
+    confirmTask: (taskIndex: string) => void;
+    onAddSubDesk: (taskName: string) => void;
+    name: string;
+    taskArray: ITask[];
+    deleteSubDesk: () => void;
+};
 
+export const SubDesk: FC<ISubDesk> = (props) => {
     const {
-        deskItem,
         desk,
-        nameArray,
-        setNameArray,
         deleteTask,
-        confirmTask
+        confirmTask,
+        onAddSubDesk,
+        name,
+        taskArray,
+        deleteSubDesk,
     } = props;
 
-    const deleteSubDesk = (array: IDesk[], currentItem: string) => {
-        array.map((desk: IDesk) => {
-            if (desk.id === params.taskId) {
-                const newArray = desk.array.filter((currentDesk) => currentDesk.id !== currentItem);
-                desk.array = [...newArray];
-            }
+    const [taskName, setTaskName] = useState('');
 
-            return desk;
-        })
+    const onKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
+        if (event.keyCode !== 13 || taskName === '') {
+            return;
+        }
 
-        return array;
-    }
+        onAddSubDesk(taskName);
+        setTaskName('');
+    };
 
-    const dispatchDeleteSubDesk = (desk: IDesk[], currentItem: string) => {
-        const newDeskArray = deleteSubDesk(desk, currentItem);
-        dispatch(remoeveTaskAction([...newDeskArray]));
-    }
+    const onChange = (event: React.ChangeEvent<HTMLInputElement>, { value }: onChangeParams) => {
+        setTaskName(value);
+    };
 
     return (
         <li className="task-page__task-name-item" key={desk.id}>
             <>
                 <Button
                     className=""
-                    name={deskItem.id}
                     onClick={(e) => {
-                        dispatchDeleteSubDesk(deskList, e.currentTarget.name);
+                        deleteSubDesk();
                     }}
                 >
                     Удалить
                 </Button>
 
-                <h2>{deskItem.name}</h2>
-
+                <h2>{name}</h2>
                 <Input
-                    nameArray={nameArray}
-                    setNameArray={setNameArray}
-                    deskItem={deskItem}
+                    value={taskName}
+                    onKeyDown={onKeyDown}
+                    onChange={onChange}
                 />
                 {
-                    deskItem.taskArray.map((item: ITask, index: number) => {
+                    taskArray.map((item: ITask, index: number) => {
                         return (
                             <Task
                                 key={index}
