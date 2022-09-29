@@ -6,7 +6,11 @@ export type onChangeParams = {
 }
 
 interface IInput {
+    id?: string;
+    className?: string;
     name?: string;
+    placeholder?: string;
+    type?: string;
     value: string;
     onKeyDown?: (event: React.KeyboardEvent<HTMLElement>) => void;
     onChange: (event: React.ChangeEvent<HTMLInputElement>, {name, value}: onChangeParams) => void;
@@ -15,6 +19,10 @@ interface IInput {
 export const Input: FC<IInput> = (props) => {
     const {
         name,
+        type,
+        id,
+        placeholder,
+        className,
         value,
         onKeyDown,
     } = props;
@@ -25,7 +33,10 @@ export const Input: FC<IInput> = (props) => {
 
     return (
         <input
-            type="text"
+            id={id}
+            placeholder={placeholder}
+            className={className}
+            type={type}
             value={value}
             onChange={onChange}
             onKeyDown={onKeyDown}

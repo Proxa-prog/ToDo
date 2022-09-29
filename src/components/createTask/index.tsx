@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { getDeskList } from '../../thunk/desk';
 
+import { getDeskList } from '../../thunk/desk';
+import { getTaskCard } from '../../thunk/taskCard';
+
+import { Button } from '../UI/Button';
 import CreateNewDesk from '../createNewDesk';
 
 import './style.scss';
-import { getTaskCard } from '../../thunk/taskCard';
-import { Button } from '../UI/Button';
 
 const CreateTask = () => {
     const [name, setName] = useState(true);

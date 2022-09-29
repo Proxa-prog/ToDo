@@ -1,8 +1,9 @@
 import { addTaskAction } from "../store/redusers/TaskList";
+import { getItemFromLocaleStorage } from "../Utils/getItemFromLocaleStorage";
 
 export const getTaskCard = (payload: any) => async (dispatch: any) => {
     try {
-        const getLocaleTaskList = window.localStorage.getItem('addDesk');
+        const getLocaleTaskList = getItemFromLocaleStorage('addDesk');
 
         await new Promise((resolve, reject) => {
           setTimeout(resolve, 2000);
