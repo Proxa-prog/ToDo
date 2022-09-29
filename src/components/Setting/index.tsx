@@ -7,6 +7,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useTypedSelectors } from '../../hooks/useTypedSelectors';
 import { addColorAction } from '../../store/redusers/Color';
 import { IColor } from '../../type';
+import { onClickSetColor } from '../../Utils/onClickSetColor';
+import { setItemFromLocaleStorage } from '../../Utils/setItemFromLocaleStorage';
 import { Button } from '../UI/Button';
 import { Input } from '../UI/Input';
 
@@ -21,7 +23,7 @@ export const Settings = () => {
     const { list } = useTypedSelectors(state => state.colors);
 
     useEffect(() => {
-        window.localStorage.setItem('colorList', JSON.stringify(list));
+        setItemFromLocaleStorage('colorList', JSON.stringify(list));
     }, [list])
 
     return (
@@ -81,16 +83,14 @@ export const Settings = () => {
                 <Button
                     className=''
                     onClick={() => {
-                        const colorId = nanoid();
-                        const setNewColor = {
-                            color: newColor,
-                            title: title,
-                            id: colorId,
-                            isActive: false,
-                        };
-                        const newArray = [...list, setNewColor];
-                        dispatch(addColorAction(newArray));
-                        getTitle('')
+                        onClickSetColor(
+                            newColor,
+                            title,
+                            list,
+                            dispatch,
+                            addColorAction,
+                            getTitle,
+                        )
                     }}
                 >Добавить
                 </Button>

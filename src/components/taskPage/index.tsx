@@ -15,6 +15,7 @@ import { Button } from "../UI/Button";
 import { nanoid } from "nanoid";
 
 import './style.scss';
+import { setItemFromLocaleStorage } from "../../Utils/setItemFromLocaleStorage";
 
 
 
@@ -89,7 +90,7 @@ const TaskPage = () => {
     }, []);
 
     useEffect(() => {
-        window.localStorage.setItem('addDesk', JSON.stringify(deskList));
+        setItemFromLocaleStorage('addDesk', JSON.stringify(deskList));
     }, [deskList]);
 
     const onAddSubDesk = (deskItem: ISubTaskArray, taskName: string) => {

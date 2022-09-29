@@ -7,6 +7,7 @@ import { removeDeskAction } from '../../store/redusers/TaskCardList';
 import { remoeveTaskAction } from '../../store/redusers/TaskList';
 import { getDeskList } from '../../thunk/desk';
 import { IDesk } from '../../type';
+import { setItemFromLocaleStorage } from '../../Utils/setItemFromLocaleStorage';
 import { Button } from '../UI/Button';
 
 import './style.scss';
@@ -30,7 +31,7 @@ const TaskList = () => {
     }, []);
 
     useEffect(() => {
-        window.localStorage.setItem('taskCard', JSON.stringify(taskCard));
+        setItemFromLocaleStorage('taskCard', JSON.stringify(taskCard));
     }, [taskCard]);
 
     return (

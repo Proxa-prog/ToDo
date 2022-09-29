@@ -7,6 +7,7 @@ import { addDeskAction } from '../../store/redusers/TaskCardList';
 import { addTaskAction } from '../../store/redusers/TaskList';
 
 import { IDesk, ISubTaskArray } from '../../type';
+import { setItemFromLocaleStorage } from '../../Utils/setItemFromLocaleStorage';
 import { ColorListItem } from '../ColorListItem';
 import { Button } from '../UI/Button';
 import { Input } from '../UI/Input';
@@ -49,9 +50,8 @@ const CreateNewDesk = () => {
     };
 
     useEffect(() => {
-        window.localStorage.setItem('addDesk', JSON.stringify(deskList));
-        window.localStorage.setItem('taskCard', JSON.stringify(taskCard));
-
+        setItemFromLocaleStorage('addDesk', JSON.stringify(deskList));
+        setItemFromLocaleStorage('taskCard', JSON.stringify(taskCard));
     }, [deskList, taskCard]);
 
     return (
