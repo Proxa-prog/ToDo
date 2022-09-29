@@ -9,6 +9,7 @@ import { addTaskAction } from '../../store/redusers/TaskList';
 import { IDesk, ISubTaskArray } from '../../type';
 import { ColorListItem } from '../ColorListItem';
 import { Button } from '../UI/Button';
+import { Input } from '../UI/Input';
 
 import './style.scss';
 
@@ -19,7 +20,7 @@ const CreateNewDesk = () => {
     const { taskCard } = useTypedSelectors(state => state.taskCardList);
     const { list } = useTypedSelectors(state => state.colors);
 
-    
+
     const createDesk = (desk: IDesk) => {
         dispatch(addTaskAction([...deskList, desk]));
 
@@ -33,13 +34,7 @@ const CreateNewDesk = () => {
         }
 
         dispatch(addDeskAction([...taskCard, deskName]));
-    }
-
-    useEffect(() => {
-        window.localStorage.setItem('addDesk', JSON.stringify(deskList));
-        window.localStorage.setItem('taskCard', JSON.stringify(taskCard));
-
-    }, [deskList, taskCard]);
+    };
 
     const addNewDesk = () => {
         const deskId = nanoid();
@@ -51,12 +46,18 @@ const CreateNewDesk = () => {
             isProgress: false,
             colorArray: list,
         });
-    }
+    };
+
+    useEffect(() => {
+        window.localStorage.setItem('addDesk', JSON.stringify(deskList));
+        window.localStorage.setItem('taskCard', JSON.stringify(taskCard));
+
+    }, [deskList, taskCard]);
 
     return (
         <div className='main__create-desk'>
             <label htmlFor="desk-name">Название доски</label>
-            <input
+            <Input
                 className='main__input-desk-name'
                 type="text"
                 id='desk-name'
@@ -84,7 +85,7 @@ const CreateNewDesk = () => {
                 }
                 <ul className='main__color-list'>
                     {list.map((item) => (
-                        <ColorListItem 
+                        <ColorListItem
                             item={item}
                             key={item.id}
                         />

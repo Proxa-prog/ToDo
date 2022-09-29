@@ -8,6 +8,7 @@ import { useTypedSelectors } from '../../hooks/useTypedSelectors';
 import { addColorAction } from '../../store/redusers/Color';
 import { IColor } from '../../type';
 import { Button } from '../UI/Button';
+import { Input } from '../UI/Input';
 
 import './style.scss';
 
@@ -39,7 +40,7 @@ export const Settings = () => {
             <div
                 className='settings__color-description'
             >
-                <input
+                <Input
                     type="text"
                     value={title}
                     onChange={(e) => { getTitle(e.target.value) }}
@@ -71,7 +72,7 @@ export const Settings = () => {
             </div>
             <div className='settings__get-color'>
                 <div className='settings__color-selection'>
-                    <input
+                    <Input
                         type="color"
                         value={newColor}
                         onChange={(e) => { getNewColor(e.target.value) }}

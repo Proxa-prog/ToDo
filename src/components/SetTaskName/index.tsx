@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { IDesk, UserListAction } from "../../type";
 import { Button } from "../UI/Button";
+import { Input } from "../UI/Input";
 
 interface ISetTaskName {
     setOpen: (open: boolean) => void;
@@ -26,6 +27,7 @@ export const SetTaskName: FC<ISetTaskName> = (props) => {
     } = props;
 
     const updateDeskList = (storage: any) => {
+        console.log(storage)
         if (storage !== null) {
             const stateFromLocalStorage = JSON.parse(storage);
             dispatch({ type: UserListAction.ADD_TASK, payload: stateFromLocalStorage });
@@ -50,7 +52,7 @@ export const SetTaskName: FC<ISetTaskName> = (props) => {
             >
                 <span className="task-page__span"></span>
             </Button>
-            <input
+            <Input
                 id="subDeskId"
                 className="task-page__input"
                 type="text"

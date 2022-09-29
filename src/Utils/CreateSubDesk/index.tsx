@@ -19,4 +19,4 @@ export const CreateSubDeskf = (nameArray: any, setNameArray: any, deskItem: any,
         setNameArray('');
         setTaskName('');
     }
-}
+};
